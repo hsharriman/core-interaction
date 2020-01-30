@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+    <html>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/index.css">
+    <body>
+    
+    <h1 style="text-align:center">Assignment 1</h1>
+    <p style="text-align: center">
+            <a style="text-decoration:none" href="pliable.html">Pliable</a>
+            &emsp;
+            <a style="text-decoration:none" href="wooden.html">Wooden</a>
+    </p>
+    <h2 style="text-align:center">References</h2>
+
+    <div class="container">
+    
+    <div class="mySlides">
+        <div class="numbertext">1 / 6</div>
+        <div class="imgresize">
+        <img src="img/pliabled01.gif" style="width:100%">
+    </div>
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">2 / 6</div>
+        <img src="img/pliabled02.gif" class="imgresize">
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">3 / 6</div>
+        <div class="imgresize"><img src="img/pliabled03.gif" style="width:100%"></div>
+    </div>
+        
+    <div class="mySlides">
+        <div class="numbertext">4 / 6</div>
+        <div class="imgresize"><img src="img/pliabled04.gif" class="imgresize"></div>
+    </div>
+
+    <div class="mySlides">
+        <div class="numbertext">5 / 6</div>
+        <div class="imgresize"><img src="img/pliablep01.jpg" style="width:100%"></div>
+    </div>
+        
+    <div class="mySlides">
+        <div class="numbertext">6 / 6</div>
+        <div class="imgresize"><img src="img/pliablep02.png" style="width:100%"></div>
+    </div>
+
+    <div class="mySlides">
+            <div class="numbertext">6 / 6</div>
+            <div class="imgresize"><img src="img/pliablep03.jpg" style="width:100%"></div>
+    </div>
+
+    <div class="mySlides">
+            <div class="numbertext">6 / 6</div>
+            <div class="imgresize"><img src="img/pliablep04.png" style="width:100%"></div>
+    </div>
+        
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <div class="caption-container">
+        <p id="caption"></p>
+    </div>
+
+    <div class="row">
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliabled01.gif" style="width:100%" onclick="currentSlide(1)" alt="Pliable Digital 1"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliabled02.gif" style="width:100%" onclick="currentSlide(2)" alt="Pliable Digital 2"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliabled03.gif" style="width:100%" onclick="currentSlide(3)" alt="Pliable Digital 3"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliabled04.gif" style="width:100%" onclick="currentSlide(4)" alt="Pliable Digital 4"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliablep01.jpg" style="width:100%" onclick="currentSlide(5)" alt="Pliable Print 1"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliablep02.png" style="width:100%" onclick="currentSlide(6)" alt="Pliable Print 2"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliablep03.jpg" style="width:100%" onclick="currentSlide(7)" alt="Pliable Print 3"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/pliablep04.png" style="width:100%" onclick="currentSlide(8)" alt="Pliable Print 4"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodend01.gif" style="width:100%" onclick="currentSlide(9)" alt="Wooden Digital 1"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodend02.gif" style="width:100%" onclick="currentSlide(10)" alt="Wooden Digital 2"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodend03.gif" style="width:100%" onclick="currentSlide(11)" alt="Wooden Digital 3"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodenp01.png" style="width:100%" onclick="currentSlide(12)" alt="Wooden Digital 4"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodenp02.png" style="width:100%" onclick="currentSlide(13)" alt="Wooden Print 1"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodenp03.png" style="width:100%" onclick="currentSlide(14)" alt="Wooden Print 2"></div>
+            </div>
+            <div class="column">
+            <div class="imgbox"><img class="demo cursor" src="img/woodenp04.png" style="width:100%" onclick="currentSlide(15)" alt="Wooden Print 3"></div>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+    
+</body>
+</html>
