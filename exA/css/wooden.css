@@ -1,37 +1,37 @@
-@import url("https://use.typekit.net/gxy6szy.css");
-@import url('https://fonts.googleapis.com/css?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Concert+One&display=swap');
+
 body {
-    background-color: rgb(255, 255, 255);
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
+    background-color:rgb(194, 153, 92);
+    font-family: 'Concert One', sans-serif;
+    font-weight: 500;
     font-style: normal;
-    text-align: center;
-    padding: 10%;
-    perspective: 400;
-    -webkit-perspective: 400;
+    text-align: justify;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
 }
 
 h1 {
     font-size: 200px;
     letter-spacing: 10px;
-    color: black;
+    color: rgb(87, 63, 31);
 }
 h2 {
     text-align: center;
     font-size: 70px;
-    color: black;
+    color: rgb(87, 63, 31);
     top: 0;
     margin: 2%;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: rgb(87, 63, 31);
 }
 
 .back-btn {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     margin: 2%;
@@ -39,45 +39,187 @@ a {
     font-size: 24px;
     color: black;
 }
-.btn-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(10, 10vw);
+    grid-template-rows: repeat(10, 10vw);
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    left: 0;
+    position: 0;
+    height: 100vw;
+    width: 100vw;
+    overflow: hidden;
+    z-index: -1;
+    font-size: 4pt;
 }
 
-.button {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    padding: 20px 70px;
-    font-size: 24px;
-    border: 3px solid black;
-    background: rgb(149,149,149);
-    /* background: linear-gradient(180deg, rgba(149,149,149,1) 0%, rgba(82,82,82,1) 100%); */
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    text-shadow: 0px  -3px 0px rgba(0,0,0,.5);
-
-    -webkit-box-shadow: 0px 25px 0px #474747, 0px 15px 20px rgba(0,0,0,.4),inset 0px 7px 0px rgba(255,255,255,.3), inset 0px 0px 15px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 25px 0px #474747, 0px 15px 20px rgba(0,0,0,.4), inset 0px 7px 0px rgba(255,255,255,.3), inset 0px 0px 15px rgba(255,255,255,.5);
-    box-shadow: 0px 25px 0px #474747, 0px 15px 20px rgba(0,0,0,.4),inset 0px 7px 0px rgba(255,255,255,.3), inset 0px 0px 15px rgba(255,255,255,.5);
-
-    -webkit-transition: all .6s ease-in-out;
-    -moz-transition: all .6s ease-in-out;
-    transition: all .6s ease-in-out;
+.grid-textbox-a {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 2pt;
+    overflow: hidden;
+    text-align: left;
+    color: rgb(87, 63, 31);
+    overflow: hidden;
 }
 
-.button:active {
-    /* background: rgb(82,82,82); */
-    background: rgb(149,149,149);
-    /* background: linear-gradient(180deg, rgba(82,82,82,1) 0%, rgba(149,149,149,1) 100%); */
-    -webkit-box-shadow: 0px 2px 0px #474747, 0px 7px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    -moz-box-shadow: 0px 2px 0px #474747, 0px 7px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-    box-shadow: 0px 2px 0px #474747, 0px 7px 10px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
-
-    -webkit-transform: translate(0, 25px) rotateX(20deg);
-    -moz-transform: translate(0, 25px);
-    transform: translate(0, 25px);
+.grid-textbox-b {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 15pt;
+    overflow: hidden;
+    text-align: justify;
+    color: rgb(148, 117, 70);
 }
+
+.grid-textbox-c {
+    grid-column-start: 8;
+    grid-column-end: 11;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    text-align: right;
+    overflow: hidden;
+    color: rgb(87, 63, 31);
+}
+
+.grid-textbox-d {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    overflow: hidden;
+}
+
+.grid-textbox-e {
+    grid-column-start: 2;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    font-size: 120pt;
+    color: rgb(105, 77, 34);
+    text-shadow: 0 -3px 0 #442e1c;
+    text-align: left;
+    overflow: hidden;
+}
+
+.grid-textbox-f {
+    grid-column-start: 6;
+    grid-column-end: 10;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    text-align: justify;
+    font-size: 3pt;
+    overflow:hidden;
+    color:rgb(105, 77, 34);
+}
+
+.grid-textbox-g {
+    grid-column-start: 10;
+    grid-column-end: 11;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    overflow: hidden;
+}
+
+.grid-textbox-h {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    font-size: 17pt;
+    overflow: hidden;
+    color: rgb(105, 77, 34);
+}
+
+.grid-textbox-i {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    overflow: hidden;
+}
+
+.grid-textbox-j {
+    grid-column-start: 8;
+    grid-column-end: 11;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    overflow: hidden;
+}
+
+.grid-textbox-k {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    font-size: 14pt;
+    overflow: hidden;
+    text-align: justify;
+    color: rgb(148, 117, 70);
+}
+
+.grid-textbox-l {
+    grid-column-start: 2;
+    grid-column-end: 6;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    overflow: hidden;
+}
+
+.grid-textbox-m {
+    grid-column-start: 6;
+    grid-column-end: 10;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    font-size: 20pt;
+    text-align: justify;
+    color: rgb(148, 117, 70);
+    overflow: hidden;
+}
+
+.grid-textbox-n {
+    grid-column-start: 10;
+    grid-column-end: 11;
+    grid-row-start: 4;
+    grid-row-end: 5;
+    overflow: hidden;
+}
+
+.grid-textbox-o {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    font-size: 9pt;
+    overflow: hidden;
+}
+
+.grid-textbox-p {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    font-size: 5pt;
+    overflow: hidden;
+    color:rgb(148, 117, 70);
+}
+
+.grid-textbox-q {
+    grid-column-start: 8;
+    grid-column-end: 11;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    font-size: 4pt;
+    overflow: hidden;
+}
+
+
+
+
+

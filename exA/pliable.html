@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf-8 />
+        <link rel="stylesheet" href="css/pliable.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/granim.min.js"></script>
+        <title>Pliable.</title>
+    </head>
+    <body onload="document.getElementById('text').select();">
+        <canvas id="granim-canvas"></canvas>
+        <div class="back-btn"><a href="index.html">&larr; BACK</a></div>
+        <div id="form-wrapper">
+        <form id="myForm">
+            <textarea id="text" placeholder="Add text..."autofocus>clicky, typey&#13;color-changey&#13;&lt;canvas&gt;</textarea>
+            </form>
+        </form>
+        </div>    
+    </body>
+
+    <script type="text/javascript">
+        var stateIter = 0;
+
+        var granimInstance = new Granim({
+            element: '#granim-canvas',
+            name: 'interactive-gradient',
+            elToSetClassOn: '#text',
+            direction: 'diagonal',
+            stateTransitionSpeed: 1000,
+            states: stateObj()
+        });
+
+        $('body').click(function() {
+            if (stateIter === 15) {
+                stateIter = 0;
+            }
+            if (stateIter < 15) {
+                console.log(stateIter);
+                granimInstance.changeState('state'+stateIter.toString());
+                stateIter++;
+            }
+        });
+
+        function stateObj() {
+            var states = {
+                "default-state": {
+                    gradients: [
+                        ['#652fe0', '#FFFFFF'],   // purple/black
+                        ['#4a90ed', '#652fe0'],   //lightblue/darkblue
+                        ['#FFFFFF', '#4a90ed'],   //some green thing
+                        ['#be1717', '#FFFFFF'],     //red black
+                        ['#FFFFFF', '#be1717'],
+                        ['#e8b7b7', '#0025a2']     //pink/blue
+                    ],
+                    transitionSpeed: 2000
+                }
+            };
+            for (var i=0; i < 15; i++) {
+                var stateName = "state" + i.toString();
+                var arr = [[bgColor(), bgColor()],
+                            [bgColor(), bgColor()]];
+                states[stateName] = {gradients: arr, transitionSpeed: 2500};
+                console.log(states[stateName]);
+            }
+            return states;
+        }
+
+        function bgColor() {
+            var hex = Math.floor(Math.random()*16777216).toString(16);
+            if (hex.length < 6) {
+                while (hex.length < 6) {
+                    hex = "0" + hex;   
+                }
+            }
+            return "#" + hex;
+        }
+    </script>
+</html>
