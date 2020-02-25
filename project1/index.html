@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html id="html">
+    <head lang="en">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="list.js"></script>
+        <script>
+        //broadcast channel global variable, one per window.
+        var ch = new BroadcastChannel('comms');
+        var markupState = false;
+        </script>
+
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="switch.css">
+        <title>Garden of Forking Paths</title>
+    </head>
+    <body onload="loadContent()">
+        <section id="landing">
+            <div id="landing-text">
+                <h1>The Garden of Forking Paths</h1>
+                <h2>This website requires two browser windows to be open simultaneously. To proceed: </p>
+                <p>1. Open this website in a second window. <br>2. Shrink the second window to the size of a mobile device.<br>3. The choices you make will affect the story&mdash;choose wisely!</p>
+            </div>
+        </section>
+        <section id="controls">
+            <div id="master-controls">
+            <div><p>Show Document Changes</p></div>
+            <div class="contol-box"><div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" onclick="toggleMarkup()" id="markupswitch">
+                <label class="onoffswitch-label" for="markupswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+            </div>
+            <div class="control-box">
+                <button class="btn"><p>Reset</p></button>
+            </div>
+            <div></div>
+            </div>
+            <!-- <div class="ellip-icon"><span><i class="fa fa-ellipsis-h" style="font-size:36px; color:'white';"></i></span></div> -->
+            <section id="drop-controls">
+                <ul id="options">
+                        <li>item 1</li>
+                        <li>item 2</li>
+                        <li>item 3</li>
+                </ul>
+            </section>
+        </section>
+        
+        <section id="doc">
+                <h1>The Garden of Forking Paths</h1>
+                <h2>Jorge Luis Borges</h2>
+                <p style="padding-bottom: 2%;"><i>For Victoria Ocampo</i></p>
+                <p id="1">On page 22 of Liddell Hart's <i>History of World War I</i>&nbsp;&nbsp;you will read that an attack against the Serre-Montauban line by thirteen British divisions (supported by 1,400 artillery pieces), planned for the 24th of July, 1916, had to be postponed until the morning of the 29th. The torrential rains, Captain Liddell Hart comments, caused this delay, an insignificant one, to be sure.</p>
+                <p id="2">The following statement, dictated, reread and signed by Dr. Yu Tsun, former professor of English at the <i>Hochschule</i>&nbsp; at Tsingtao, throws an unsuspected light over the whole affair. The first two pages of the document are missing.</p>
+                <p id="3">"...and I hung up the receiver. Immediately afterwards, I recognized the voice that had answered in German. It was that of Captain Richard Madden. Madden's presence in Viktor Runeberg's apartment meant the end of our anxieties and&mdash;but this seemed, or <i>should have seemed,</i>&nbsp;very secondary to me&mdash;also the end of our lives. It meant that Runeberg had been arrested or <a href="index.html/author-note">murdered.</a> Before the sun set on that day, I would encounter the same fate. Madden was implacable. Or rather, he was obliged to be so. An Irishman at the service of England, a man accused of laxity and perhaps of treason,</p>
+                
+                
+        </section>
+    </body>
+    <script>
+        function loadContent() {
+            console.log(ch.name);
+
+            if (window.innerWidth > 600) {
+                document.getElementById('controls').remove();
+            }  
+            if (window.innerWidth <= 600 || screen.width <= 600) {
+                //add button to take to mobile version of site if no access to desktop.
+                var btn = document.createElement('button');
+                btn.appendChild(document.createTextNode("I'm using my phone"));
+                btn.classList.add('to-mobile');
+                btn.onclick = toMobile;
+                document.getElementById('landing').appendChild(btn);
+
+                //tell large window to reload
+                ch.postMessage('continue');
+            }
+        }
+
+        function toMobile() {
+            //TODO: FIX MOBILE WEBSITE FORMATTING ITS NOT CUTE
+            document.getElementById('landing').remove();
+        }
+
+        function addText() {
+            ch.postMessage('add text');
+        }
+
+        function toggleMarkup() {
+            //change state
+            markupState = !markupState;
+            if (markupState) {
+                //markup turned on
+                ch.postMessage("markup on");
+            } else {
+                //markup turned off
+                ch.postMessage("markup off");
+            }
+        }
+
+        //TODO: RESET PAGE IF WIDTH IS STRETCHED OUT AGAIN
+
+        ch.onmessage = function(e) {
+            if (e.data === "continue") {
+                //remove landing page for desktop
+                document.getElementById('landing').remove();
+                document.getElementById('html').style.overflow = "visible";
+                //tell small window to remove landing as well
+                ch.postMessage("continue to controls");
+            }
+            if (e.data === "continue to controls") {
+                //remove landing page and text for small page
+                document.getElementById('doc').remove();
+                document.getElementById('landing').remove();
+                makeSwappable();
+            }
+            if (e.data === "markup on") {
+                //TURN ON the indicators that show what text has been inserted or removed in comparison to original
+                document.querySelectorAll('.inserted').forEach(function (i) {
+                    i.style.backgroundColor = "rgb(120, 202, 120)";
+                });
+                document.querySelectorAll('#deleted').forEach(function(i) {
+                    i.style.display = "inline";
+                });
+            }
+            if (e.data === "markup off") {
+                //REMOVE indicators of inserted/removed text
+                document.querySelectorAll(".inserted").forEach(function (i) {
+                    i.style.backgroundColor = "transparent";
+                });
+                document.querySelectorAll("#deleted").forEach(function (i) {
+                    i.style.display = "none";
+                });
+            }
+            if (e.data === "add text") {
+                //ADD TEXT with an animation
+                var txt = document.createElement('p');
+                txt.appendChild(document.createTextNode("This is some inserted text"));
+                txt.classList.add('inserted');
+                document.getElementById('doc').appendChild(txt);
+            }
+        }
+
+    </script>
+</html>
