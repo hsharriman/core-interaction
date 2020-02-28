@@ -1,13 +1,11 @@
-import Sortable from 'sortablejs';
+import Sortable from '../node_modules/sortablejs';
 // Cherrypick extra plugins
-import Sortable, { Swap } from 'sortablejs';
+import { Swap } from '../node_modules/sortablejs';
 
-export function makeSwappable() {
+export default function makeSwappable() {
     Sortable.mount(new Swap());
-    new Sortable(swapDemo, {
-        swap: true, // Enable swap plugin
-        swapClass: 'highlight', // The class applied to the hovered swap item
-        animation: 150
+    new Sortable(options, {
+        swap: true // Enable swap plugin
     });
     var el = document.getElementById('options');
     var sortable = Sortable.create(el);

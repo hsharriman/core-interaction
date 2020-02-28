@@ -1,0 +1,130 @@
+@import url("index.css");
+
+#controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background-color: white;
+    color: black;
+}
+
+#master-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 4rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    /* padding: 2rem 2rem 1rem 1rem; */
+}
+
+#master-controls p {
+    font-family: sans-serif;
+    font-weight: 500;
+    color: rgba(83,83,83,1);
+    font-size: 2rem;
+    padding: 0.8rem;
+}
+
+#drop-controls {
+    color: white;
+}
+
+.control-title {
+    padding: 2rem 1.5rem 1.5rem 2.5rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+    background-color: rgb(219, 219, 219);
+    border-bottom: .2rem solid black;
+    color: rgb(83, 83, 83);
+}
+.control-header {
+    padding: 1rem 0 0.75rem 1rem;
+    margin-left: 2rem;
+    margin-right: 3rem; 
+    color: rgba(83,83,83,1);
+    font-size: 2rem;
+    border-bottom: .2rem solid rgb(161, 161, 161);
+}
+
+.control-box {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: auto auto;
+    /* height: 100%; */
+    padding: 1rem;
+}
+.btn {
+    color: white;
+    padding: 1%;
+    background-color: rgb(75, 75, 75);
+    cursor: pointer;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+ul {
+    align-content: center;
+    justify-content: center;
+    /* overflow: scroll; */
+    list-style-type: none;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+li {
+    background-color: rgb(255, 255, 255);
+    border-top: 0.1rem solid rgb(161, 161, 161);
+    font-family: sans-serif;
+    font-weight: 500;
+    color: rgba(83,83,83,1);
+    font-size: 2rem;
+    padding: 0.8rem;
+    cursor: move;
+    display: flex;
+    flex-direction: row;
+}
+li:first-child {
+    border-top: none;
+}
+li:last-child {
+    border-bottom: 0.1rem solid rgb(161, 161, 161);
+}
+
+li:hover {
+    font-weight: 700;
+    background-color: rgb(214, 225, 255);
+    color: rgb(22, 74, 117);
+    transition: 0.2s linear;
+}
+
+.checkbox-label input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+
+
+
+
+.ellip-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: .4rem;
+    text-align: center;
+    justify-content: center;
+    background: rgb(8,8,8);
+    background: linear-gradient(0deg, rgb(83, 121, 247) 42%, rgb(52, 129, 218) 100%);
+    margin-right: 4rem;
+    margin-left: 2rem;
+    margin-top: 1%;
+}
+
+.ellip-icon i {
+    color: white;
+    font-size: 1.8rem;
+}
