@@ -1,5 +1,4 @@
 import Sortable, { Swap } from '../node_modules/sortablejs/modular/sortable.core.esm.js';   
-// Cherrypick extra plugins
 
 window.makeSwappable = () => {
     console.log("running swappable");
@@ -14,6 +13,7 @@ window.makeSwappable = () => {
                 arr.push([items[i].id, i]); 
             }
             ch.postMessage(["section update", arr]);
+            ch.postMessage("markup on");
             console.log(arr);
         }
     });

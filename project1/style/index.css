@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Serif+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
+:root {
+    --header-color: rgb(83, 83, 83);
+    --active-color: rgb(97, 167, 228);
+    --hover: rgb(230, 236, 255);
+    --border-color: rgb(168, 168, 168);
+    --active-text-color: rgb(50, 86, 141);
+    --text-color: rgb(20, 20, 20);
+}
+
 html { 
     font-size: 62.5%;
     overflow: auto;
@@ -61,7 +70,7 @@ html {
     font-size: 1.6rem;
     padding: 2rem 4rem 2rem 4rem;
     background: rgb(50,134,210);
-    background: linear-gradient(0deg, rgba(50,134,210,1) 0%, rgba(46,162,245,1) 100%);
+    background: linear-gradient(0deg, rgb(97, 167, 228) 0%, rgb(69, 164, 233)100%);
     border-radius: 3px;
     color: white;
     border: none;
@@ -71,6 +80,8 @@ html {
     font-family: sans-serif;
     font-size: 1.6rem;
     margin-left: 2rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
     width: 22rem;
     padding: 1.5rem 1rem 1.5rem 1rem;
     background: rgb(204, 204, 204);
@@ -123,7 +134,7 @@ p, span {
 
 
 @keyframes ins {
-    0% { background-color: rgb(120, 202, 120);}
+    0% { background-color: rgb(169, 224, 169);}
     100% { background-color: rgb(255, 255, 255, 0); }
 }
 .inserted {
@@ -134,7 +145,6 @@ p, span {
 .deleted {
     color: red;
     text-decoration: line-through;
-    background-color: rgb(245, 182, 182);
     display: none;
 }
 
@@ -142,17 +152,14 @@ p, span {
     display: none;
 }
 
-.to-mobile {
-    align-self: center;
-    font-family: 'Roboto Slab', serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    color: white;
-    background-color: transparent;
-    border: 2px solid white;
-    border-radius: 4px;
-    padding: 2rem;
-    cursor: pointer;
+.section-divider {
+    width: 100%;
+    font-size: 1.5rem;
+    float: right;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--border-color);
+    display: none;
+    margin-bottom: 2rem;
 }
 
 @keyframes shadow-pulse
@@ -191,9 +198,14 @@ p, span {
     color:white;
 }
 
+#footnote span {
+  color: black;
+  text-align: left;
+  font-size: 1.15rem;
+  line-height: 1rem;
+}
 
 /* TODO: ADD ANOTHER BREAKPOINT FOR THE CONTROL PANEL IF IT EXPANDS */
-/* ADD ANOTHER BREAKPOINT FOR A SMALLER SCREEN OF THE PDF PAGE */
 @media screen and (max-width: 1450px) {
     #doc {
         background-color: white;

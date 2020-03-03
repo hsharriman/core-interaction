@@ -9,6 +9,11 @@ function loadContent() {
         //add button to take to mobile version of site if no access to desktop.
         document.getElementById('doc').remove();
 
+        expandPresets(document.getElementById("presets"));
+        expandAdvanced(document.getElementById("adv"));
+        expandReorg(document.getElementById("structure"));
+        expandContent(document.getElementById("content"));
+
         //tell large window to reload
         ch.postMessage('continue');
     }
@@ -45,13 +50,32 @@ function toggleMarkup() {
     }
 }
 
-function showMenu(panelName, chevID) {
+function toggleSections() {
+    sectionState = !sectionState;
+    if (sectionState) {
+        console.log("sections on");
+        ch.postMessage("sections on");
+    } else {
+        console.log("sections off");
+        ch.postMessage("sections off");
+    }
+}
+
+function showMenu(self, panelName, chevID) {
     var panel = document.getElementById(panelName);
+    chevron = document.getElementById(chevID);
     if (panel.style.maxHeight) {
         // panel.style.display = "block";
         panel.style.maxHeight = null;
         rotateChevron(chevID, "0deg");
+        self.style.border = "2px solid var(--border-color)";
+        self.style.color = "var(--header-color)";
+        chevron.style.color = "var(--header-color)";
     } else {
+        self.style.border = "2px solid var(--active-color)";
+        self.style.color = "var(--active-text-color)";
+        chevron.style.color = "var(--active-text-color)";
+
         var advPanel = document.getElementById("advanced-panel");
         panel.style.maxHeight = panel.scrollHeight + "px";
         rotateChevron(chevID, "-90deg");
@@ -69,21 +93,56 @@ function rotateChevron(chevID, degrees) {
     chevron.style.transform = 'rotate(' + degrees + ')';
 }
 
-function expandAdvanced() {
-    showMenu("advanced-panel", "chev-adv");
+function expandAdvanced(self) {
+    showMenu(self, "advanced-panel", "chev-adv");
     //TODO: ADD +/- SIGN
 }
 
-function expandReorg() {
+function expandReorg(self) {
     adjustAdvancedMenu("reorg-panel");
-    showMenu("reorg-panel", "chev-reorg");
+    showMenu(self, "reorg-panel", "chev-reorg");
 }
 
-function expandPresets() {
-    showMenu("preset-panel", "chev-pre");
+function expandPresets(self) {
+    showMenu(self, "preset-panel", "chev-pre");
 }
 
-function expandContent() {
+function expandContent(self) {
     adjustAdvancedMenu("content-panel");
-    showMenu("content-panel", "chev-content");
+    showMenu(self, "content-panel", "chev-content");
+}
+
+function resetButtons(presetType) {
+    for (var i=1; i<5; i++) {
+        var btn = document.getElementById("btn-" + i.toString()); 
+        if (i==presetType) {
+            btn.style.background = "rgb(97, 167, 228)";
+            btn.style.color = "white";
+        } else {
+            btn.style.background = "white";
+            btn.style.color = "var(--text-color)";
+        }
+    }
+}
+function preset(presetType) {
+    resetButtons(presetType);
+    var arr = [];
+    if (presetType == 1) {
+        arr = [["2",0], ["4",1], ["6",2], ["7",3], ["5",4], ["1",5], ["0",6], ["3",7], ["8",8]];
+    }
+    if (presetType == 2) {
+        arr = [["6",0], ["5",1], ["7",2], ["0",3], ["2",4], ["3",5], ["4",6], ["1",7], ["8",8]];
+    }
+    if (presetType == 3) {
+        arr = [["0",0], ["3",1], ["2",2], ["4",3], ["6",4], ["5",5], ["1",6], ["7",7], ["8",8]];
+    }
+    if (presetType == 4) {
+        arr = [["6",0], ["8",1], ["5",2], ["2",3], ["0",4], ["3",5], ["4",6], ["7",7], ["1",8]];
+    }
+    ch.postMessage(["section update", arr]);
+}
+
+function reset() {
+    ch.postMessage("refresh");
+    window.location.reload();
 }
