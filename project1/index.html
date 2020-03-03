@@ -3,10 +3,10 @@
     <head lang="en">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="js/list.js" type="text/javascript"></script>
-        <script src="js/index.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="js/list.js" type="module"></script>
+        <script src="index.js" type="text/javascript"></script>
         <script>
-        //broadcast channel global variable, one per window.
         var ch = new BroadcastChannel('comms');
         var markupState = false;
         </script>
@@ -34,42 +34,123 @@
             </div>
         </section>
         <section id="controls">
-            <!-- <label class="container"><span style="color: white;">Show Changes</span>
-                    <input type="checkbox" checked="checked">
-                    <span class="checkmark"></span>
-            </label> -->
             <div class="control-title">Control Panel</div>
-            <div class="control-header">Markup</div>
-            <p>Show Changes<input type="checkbox" onclick="toggleMarkup()"></p>
-            <div id="master-controls">
-            <div class="control-box" style="padding-right: 0;"><p style="margin:0px;">Show Changes</p></div>
-            <div class="contol-box"><div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" onclick="toggleMarkup()" id="markupswitch">
-                <label class="onoffswitch-label" for="markupswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
+            <div class="control-header" style="margin-bottom:2rem;">                
+                <label class="check-container" name="toggle-markup">
+                    <input type="checkbox" onclick="toggleMarkup()">
+                    <span class="styled-check">&#10004;</span>
                 </label>
+                <span class="check-text">Show Changes</span>
             </div>
+            <div class="control-header" onclick="expandPresets()">Presets <span id="chev-pre" class="chevron">&lsaquo;</span><div class="expand"></div></div>
+            <div id="preset-panel" class="panel">
+                <div id="master-controls">
+                        <button class="btn">Preset 1</button>
+                        <button class="btn">Preset 2</button>
+                        <button class="btn">Preset 3</button>
+                        <button class="btn">Preset 4</button>
+                </div>
             </div>
-            <!-- <div class="control-box">
-                <button class="btn"><p>Reset</p></button>
-            </div> -->
+            <div class="control-header" onclick="expandAdvanced()">Advanced<span id="chev-adv" class="chevron">&lsaquo;</span></div>
+            <div id="advanced-panel" class="panel">
+                    <div class="control-header" onclick="expandReorg()">Structure<span id="chev-reorg" class="chevron">&lsaquo;</span></div>
+                    <div id="reorg-panel" class="panel">
+                        <ul id="options">
+                            <li id="phone-call"><div class="draggable">
+                                <div class="drag-circle"></div>
+                                <div class="drag-circle"></div>
+                                <div class="drag-circle"></div>
+                                <div class="drag-circle"></div>
+                                <div class="drag-circle"></div>
+                                <div class="drag-circle"></div>
+                            </div>The Phone Call</li>
+                            <li id="secret"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Secret</li>
+                            <li id="chief"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Chief</li>
+                            <li id="plan"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Plan</li>
+                            <li id="ashgrove"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>To Ashgrove</li>
+                            <li id="illusion"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Illusion</li>
+                            <li id="intro"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>Introductions</li>
+                            <li id="labyrinth"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Labyrinth</li>
+                            <li id="future"><div class="draggable">
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                    <div class="drag-circle"></div>
+                                </div>The Future</li>
+                        </ul>
+                    </div>
+                    <div class="control-header" onclick="expandContent()">Content<span id="chev-content" class="chevron">&lsaquo;</span></div>
+                        <div id="content-panel" class="panel">
+                            <ul>
+                                <li>            <div class="control-header" style="margin-bottom:2rem;">                
+                                        <label class="check-container" name="toggle-markup">
+                                            <input type="checkbox" onclick="toggleMarkup()">
+                                            <span class="styled-check">&#10004;</span>
+                                        </label>
+                                        <span class="check-text">Communicate Secret to the Chief?</span>
+                                    </div></li>
+                                <li>What to do with the gun?</li>
+                                <li>How to communicate with the Chief?</li>
+                                <li>What method of transportation?</li>
+                                <li>What does he do with his last coin?</li>
+                                <li>Listen to Albert?</li>
+                                <li>See plan through to completion?</li>
+                            </ul>
+                        </div>
+                    <div class="control-header">Choices<span id="chev-choice" class="chevron">&lsaquo;</span></div>
+                        <div id="choice-panel" class="panel"></div>
             </div>
-            <!-- <div class="ellip-icon"><span><i class="fa fa-ellipsis-h" style="font-size:36px; color:'white';"></i></span></div> -->
-            <div class="control-header">Reorganization</div>
-            <section id="drop-controls">
-                <ul id="options">
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Phone Call</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Secret</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Chief</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Plan</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>To Ashgrove</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Illusion</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>Introductions</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Labyrinth</li>
-                        <li><div class="ellip-icon"><i class="fa fa-ellipsis-h"></i></div>The Future</li>
-                </ul>
-            </section>
         </section>
         
         <section id="doc">
@@ -169,23 +250,21 @@
         </section>
     </body>
     <script type="text/javascript">
-        
-
         //TODO: RESET PAGE IF WIDTH IS STRETCHED OUT AGAIN
 
+        //handling link between controls and reader
         ch.onmessage = function(e) {
             if (e.data === "continue") {
                 //remove landing page for desktop
-                document.getElementById('editing-div').remove();
+                // document.getElementById('editing-div').remove();
                 document.getElementById('html').style.overflow = "visible";
                 //tell small window to remove landing as well
                 ch.postMessage("continue to controls");
             }
             if (e.data === "continue to controls") {
                 //remove landing page and text for small page
-                document.getElementById('doc').remove();
-                document.getElementById('editing-div').remove();
-                // makeSwappable();
+                // document.getElementById('doc').remove();
+                // document.getElementById('editing-div').remove();
             }
             if (e.data === "markup on") {
                 //TURN ON the indicators that show what text has been inserted or removed in comparison to original

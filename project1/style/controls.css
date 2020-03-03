@@ -1,5 +1,10 @@
 @import url("index.css");
-
+:root {
+    --header-color: rgb(83, 83, 83);
+    --active-color: rgb(119, 190, 231);
+    --hover: rgb(230, 236, 255);
+    --border-color: rgb(168, 168, 168);
+}
 #controls {
     position: absolute;
     top: 0;
@@ -14,8 +19,10 @@
 #master-controls {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 4rem;
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
     margin-top: 2rem;
+    margin-right: 4rem;
     margin-bottom: 1.5rem;
     /* padding: 2rem 2rem 1rem 1rem; */
 }
@@ -23,7 +30,7 @@
 #master-controls p {
     font-family: sans-serif;
     font-weight: 500;
-    color: rgba(83,83,83,1);
+    color: var(--header-color);
     font-size: 2rem;
     padding: 0.8rem;
 }
@@ -38,32 +45,63 @@
     font-weight: 700;
     background-color: rgb(219, 219, 219);
     border-bottom: .2rem solid black;
-    color: rgb(83, 83, 83);
+    color: var(--header-color);
 }
 .control-header {
     padding: 1rem 0 0.75rem 1rem;
     margin-left: 2rem;
     margin-right: 3rem; 
-    color: rgba(83,83,83,1);
+    color: var(--header-color);
     font-size: 2rem;
-    border-bottom: .2rem solid rgb(161, 161, 161);
+    border: .2rem solid var(--border-color);
+    border-radius: .75rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.active, .control-header:hover {
+    background-color: var(--hover);
+}
+
+.panel {
+    background-color: white;
+    overflow: hidden;
+    border-top: none;
+    margin-left: 2rem;
+    margin-top: 0;
+    max-height: 0;
+    transition: max-height 0.25s ease-out;
+}
+
+.control-header .check-text {
+    padding-left: 5rem;
+    font-size: 2rem;
+    color: var(--header-color);
 }
 
 .control-box {
     display: flex;
-    align-content: center;
-    justify-content: center;
+    align-content: left;
+    justify-content: left;
     margin: auto auto;
     /* height: 100%; */
     padding: 1rem;
 }
 .btn {
-    color: white;
+    color: var(--header-color);
     padding: 1%;
-    background-color: rgb(75, 75, 75);
+    background-color: white;
     cursor: pointer;
     padding-left: 3rem;
     padding-right: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 1rem;
+    font-size: 1.75rem;
 }
 
 ul {
@@ -73,14 +111,16 @@ ul {
     list-style-type: none;
     padding-left: 3rem;
     padding-right: 3rem;
+    z-index: 20;
+    margin-right: 2.5rem;
 }
 
 li {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border-top: 0.1rem solid rgb(161, 161, 161);
     font-family: sans-serif;
     font-weight: 500;
-    color: rgba(83,83,83,1);
+    color: var(--header-color);
     font-size: 2rem;
     padding: 0.8rem;
     cursor: move;
@@ -95,36 +135,82 @@ li:last-child {
 }
 
 li:hover {
-    font-weight: 700;
-    background-color: rgb(214, 225, 255);
+    background-color: var(--hover);
     color: rgb(22, 74, 117);
     transition: 0.2s linear;
 }
 
-.checkbox-label input {
+li:hover .draggable {
+    opacity: 100;
+}
+
+.check-container input {
     opacity: 0;
     position: absolute;
     cursor: pointer;
+    margin-top: .4rem;
+    margin-bottom: 0;
 }
 
+.check-container {
+    margin-left: 3rem;
+    margin-top: .5rem;
+    margin-bottom: 0;
+    position: absolute;
+    left: 0;
+    display: block;
+    cursor: pointer;
+}
 
-
-
-
-.ellip-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: .4rem;
+.styled-check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid gray;
+    border-radius: .75rem;
     text-align: center;
-    justify-content: center;
-    background: rgb(8,8,8);
-    background: linear-gradient(0deg, rgb(83, 121, 247) 42%, rgb(52, 129, 218) 100%);
-    margin-right: 4rem;
-    margin-left: 2rem;
-    margin-top: 1%;
+    font-size: 2rem;
+    color: transparent;
 }
 
-.ellip-icon i {
-    color: white;
-    font-size: 1.8rem;
+.check-container input:checked ~ .styled-check {
+    border: 2px solid var(--active-color);
+    color: var(--active-color);
+}
+
+
+
+
+.draggable {
+    position: absolute;
+    right: 0;
+    width: 2rem;
+    height: 1.75rem;
+    text-align: center;
+    display: grid;
+    opacity: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: .05rem;
+    grid-row-gap: .1rem;
+    justify-content: center;
+    margin-right: 6.5rem;
+    margin-top: 1rem;
+}
+
+.drag-circle {
+    width: .3rem;
+    height: .3rem;
+    border-radius: 50%;
+    background-color: gray;
+}
+
+.chevron {
+    position: relative;
+    float: right;
+    margin-right: 2.5rem;
+    color: gray;
+    font-size: 2.5rem;
 }

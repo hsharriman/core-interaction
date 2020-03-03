@@ -168,7 +168,7 @@ p, span {
     height: 7rem;
     border-radius: 50%;
     background: rgb(50,134,210);
-    background: linear-gradient(0deg, rgba(50,134,210,1) 0%, rgba(46,162,245,1) 100%);
+    background: linear-gradient(0deg, rgb(97, 167, 228) 0%, rgb(69, 164, 233)100%);
     display: flex;
     justify-content: center;
     align-items: center;
