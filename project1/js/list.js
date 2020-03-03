@@ -7,9 +7,14 @@ window.makeSwappable = () => {
     new Sortable(options, {
         swap: true, // Enable swap plugin
         onEnd(evt) {
-            console.log(evt.to);
-            ch.postMessage(Array.from(evt.to));
-            console.log(Array.from(evt.to));
+            var ul = evt.to;
+            var arr = [];
+            var items = ul.getElementsByTagName("li");
+            for (var i = 0; i < items.length; ++i) {
+                arr.push([items[i].id, i]); 
+            }
+            ch.postMessage(["section update", arr]);
+            console.log(arr);
         }
     });
     var el = document.getElementById('options');

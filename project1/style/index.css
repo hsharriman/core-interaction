@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Source+Serif+Pro&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-@import 'fonts.css';
-
 
 html { 
     font-size: 62.5%;
@@ -129,7 +127,19 @@ p, span {
     100% { background-color: rgb(255, 255, 255, 0); }
 }
 .inserted {
+    display: block;
     animation: 4s ins ease-out; 
+}
+
+.deleted {
+    color: red;
+    text-decoration: line-through;
+    background-color: rgb(245, 182, 182);
+    display: none;
+}
+
+.hidden {
+    display: none;
 }
 
 .to-mobile {
