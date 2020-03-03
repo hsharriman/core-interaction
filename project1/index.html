@@ -17,11 +17,13 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style/controls.css">
+        <link rel="stylesheet" href="style/checkbox.css">
         <title>Garden of Forking Paths</title>
     </head>
     <body onload="loadContent()">
         <section id="overlay">
             <button class="edit-btn" onclick="openPopup()" title="Start Editing"><i class="material-icons">mode_edit</i></button>
+            <div class="tooltip"><span>8.5x11"</span></div>
         </section>
         <section id="editing-div">
             <div id="popup">
@@ -44,7 +46,7 @@
                 </label>
                 <span class="check-text">Show Changes</span>
             </div>
-            <div class="checkbox-header" style="margin-bottom: 1rem;">                
+            <div class="checkbox-header">                
                     <label class="check-container" name="toggle-markup">
                         <input type="checkbox" onclick="toggleSections()">
                         <span class="styled-check">&#10004;</span>
@@ -55,14 +57,43 @@
             <div class="control-header" onclick="expandPresets(this)" id="presets">Some of the Infinite Series of Times <span id="chev-pre" class="chevron">&lsaquo;</span><div class="expand"></div></div>
             <div id="preset-panel" class="panel">
                 <div id="master-controls">
-                        <button class="btn" onclick="preset(1)" id="btn-1">One Branch of Reality</button>
+                        <button class="btn" onclick="preset(1)" id="btn-1">A Branch of Reality</button>
                         <button class="btn" onclick="preset(2)" id="btn-2">Another Branch of Reality</button>
                         <button class="btn" onclick="preset(3)" id="btn-3">Yet Another Branch of Reality</button>
                         <button class="btn" onclick="preset(4)" id="btn-4">And Yet Another Branch of Reality</button>
                 </div>
+                <!-- <div id="radios"> -->
+                <!-- <div class="radio-header">
+                        <label class="radio">
+                                <input type="radio" id="btn-1" name="presets" onclick="preset(1)" value="btn-1">
+                                <span class="dot"></span>
+                        </label>
+                        <span class="check-text">One Branch of Reality</span>
+                    </div>
+                    <div class="radio-header">
+                            <label class="radio">
+                                    <input type="radio" id="btn-2" name="presets" onclick="preset(2)" value="btn-2">
+                                    <span class="dot"></span>
+                            </label>
+                            <span class="check-text">Another Branch of Reality</span>
+                    </div>
+                    <div class="radio-header">
+                            <label class="radio">
+                                    <input type="radio" id="btn-3" name="presets" onclick="preset(3)" value="btn-3">
+                                    <span class="dot"></span>
+                            </label>
+                            <span class="check-text">Yet Another Branch of Reality</span>
+                    </div>
+                    <div class="radio-header">
+                            <label class="radio">
+                                    <input type="radio" id="btn-4" name="presets" onclick="preset(4)" value="btn-4">
+                                    <span class="dot"></span>
+                            </label>
+                            <span class="check-text">And Yet Another Branch of Reality</span>
+                    </div> -->
+                <!-- </div> -->
             </div>
-            <div class="control-header" onclick="expandAdvanced(this)" id="adv">Advanced Controls<span id="chev-adv" class="chevron">&lsaquo;</span></div>
-            <div id="advanced-panel" class="panel">
+            <div class="general-header">Advanced Controls</div>
                     <div class="control-header" onclick="expandReorg(this)" id="structure">Structure<span id="chev-reorg" class="chevron">&lsaquo;</span></div>
                     <div id="reorg-panel" class="panel">
                         <ul id="options">
@@ -140,27 +171,38 @@
                                 </div>The Future</li>
                         </ul>
                     </div>
-                    <div class="control-header" onclick="expandContent(this)" id="content">Choices<span id="chev-content" class="chevron">&lsaquo;</span></div>
+                    <!-- <div class="control-header" onclick="expandContent(this)" id="content">Choices<span id="chev-content" class="chevron">&lsaquo;</span></div>
                         <div id="content-panel" class="panel">
-                            <ul>
-                                <li>            
-                                    <div class="control-header" style="margin-bottom:2rem;">                
+                                <div class="checkbox-header">                
                                         <label class="check-container" name="toggle-markup">
                                             <input type="checkbox" onclick="toggleMarkup()">
                                             <span class="styled-check">&#10004;</span>
                                         </label>
-                                        <span class="check-text">Communicate Secret to the Chief?</span>
+                                        <span class="check-text">Communicate secret to the Chief?</span>
                                     </div>
-                                </li>
+
+                                <div class="checkbox-header">                
+                                        <label class="check-container" name="toggle-markup">
+                                            <input type="checkbox" onclick="toggleMarkup()">
+                                            <span class="styled-check">&#10004;</span>
+                                        </label>
+                                        <span class="check-text">Listen to Albert?</span>
+                                    </div>
+
+                                <div class="checkbox-header">                
+                                        <label class="check-container" name="toggle-markup">
+                                            <input type="checkbox" onclick="toggleMarkup()">
+                                            <span class="styled-check">&#10004;</span>
+                                        </label>
+                                        <span class="check-text">See plans through to completion?</span>
+                                </div>
+                            <ul>
                                 <li>What to do with the gun?</li>
                                 <li>How to communicate with the Chief?</li>
                                 <li>What method of transportation?</li>
                                 <li>What does he do with his last coin?</li>
-                                <li>Listen to Albert?</li>
-                                <li>See plan through to completion?</li>
                             </ul>
-                        </div>
-            </div>
+                        </div> -->
         </section>
         
         <section id="doc">

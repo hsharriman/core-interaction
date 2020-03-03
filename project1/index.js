@@ -10,9 +10,8 @@ function loadContent() {
         document.getElementById('doc').remove();
 
         expandPresets(document.getElementById("presets"));
-        expandAdvanced(document.getElementById("adv"));
         expandReorg(document.getElementById("structure"));
-        expandContent(document.getElementById("content"));
+        // expandContent(document.getElementById("content"));
 
         //tell large window to reload
         ch.postMessage('continue');
@@ -68,24 +67,19 @@ function showMenu(self, panelName, chevID) {
         // panel.style.display = "block";
         panel.style.maxHeight = null;
         rotateChevron(chevID, "0deg");
-        self.style.border = "2px solid var(--border-color)";
         self.style.color = "var(--header-color)";
         chevron.style.color = "var(--header-color)";
+        self.style.background = "var(--hover)";
+        self.style.borderBottom = "2px solid var(--border-color)";
     } else {
-        self.style.border = "2px solid var(--active-color)";
-        self.style.color = "var(--active-text-color)";
-        chevron.style.color = "var(--active-text-color)";
+        // self.style.borderBottom = "none";
+        self.style.color = "var(--text-color)";
+        chevron.style.color = "var(--text-color)";
+        self.style.background = "rgb(238, 238, 238);";
 
-        var advPanel = document.getElementById("advanced-panel");
         panel.style.maxHeight = panel.scrollHeight + "px";
         rotateChevron(chevID, "-90deg");
     }
-}
-
-function adjustAdvancedMenu(subpanelID) {
-    var panel = document.getElementById("advanced-panel");
-    var addedHeight = document.getElementById(subpanelID).scrollHeight;
-    panel.style.maxHeight = panel.scrollHeight + addedHeight + "px";
 }
 
 function rotateChevron(chevID, degrees) {
@@ -93,13 +87,7 @@ function rotateChevron(chevID, degrees) {
     chevron.style.transform = 'rotate(' + degrees + ')';
 }
 
-function expandAdvanced(self) {
-    showMenu(self, "advanced-panel", "chev-adv");
-    //TODO: ADD +/- SIGN
-}
-
 function expandReorg(self) {
-    adjustAdvancedMenu("reorg-panel");
     showMenu(self, "reorg-panel", "chev-reorg");
 }
 
@@ -108,18 +96,18 @@ function expandPresets(self) {
 }
 
 function expandContent(self) {
-    adjustAdvancedMenu("content-panel");
     showMenu(self, "content-panel", "chev-content");
 }
 
 function resetButtons(presetType) {
     for (var i=1; i<5; i++) {
-        var btn = document.getElementById("btn-" + i.toString()); 
+        var btn = document.getElementById("btn-" + i.toString());
+        console.log("change color"); 
         if (i==presetType) {
             btn.style.background = "rgb(97, 167, 228)";
             btn.style.color = "white";
         } else {
-            btn.style.background = "white";
+            btn.style.background = "var(--hover)";
             btn.style.color = "var(--text-color)";
         }
     }

@@ -7,6 +7,7 @@
     width: 100%;
     height: 100vh;
     overflow: auto;
+    /* background-color: rgb(219, 219, 219); */
     background-color: white;
     color: black;
 }
@@ -57,35 +58,39 @@
 
 .general-header {
     padding: 1rem 0 .75rem 4rem;
-    color: var(--header-color);
+    color: white;
     border-bottom: .2rem solid var(--border-color);
     font-size: 1.5rem;
     cursor: pointer;
-    background-color: rgb(238, 238, 238);
-    margin-bottom: 2rem;
+    background-color: var(--active-color);
 }
 
 .checkbox-header {
-    padding: 1rem 0 0.75rem 0rem;
-    margin-left: 2rem;
-    margin-right: 3rem; 
+    padding: .75rem 0 0.75rem 3rem;
+    background-color: white;
+    margin-left: 0rem;
+    margin-right: 0rem; 
     color: var(--text-color);
     font-size: 2rem;
     cursor: pointer;
     margin-bottom: 0;
+    border-top: 1px solid var(--border-color);
 }
 .control-header {
-    padding: 1rem 0 0.75rem 2rem;
-    margin-left: 2rem;
-    margin-right: 3rem; 
+    padding: 1rem 0 0.75rem 4rem;
+    /* margin1left: 2rem; */
+    /* margin-right: 3rem;  */
     color: var(--text-color);
+    background-color: var(--hover);
     font-size: 2rem;
     border-bottom: .2rem solid var(--border-color);
     /* border-radius: .75rem; */
     cursor: pointer;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 }
+
+/* #structure { */
+    /* border */
+/* } */
 
 .active, .control-header:hover {
     background-color: var(--hover);
@@ -126,9 +131,11 @@
     padding-bottom: 1rem;
     margin-left: .5rem;
     margin-right: .5rem;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    /* border: none; */
     border-radius: .75rem;
     font-size: 1.75rem;
+    background-color: var(--hover);
 }
 
 ul {
@@ -136,10 +143,12 @@ ul {
     justify-content: center;
     /* overflow: scroll; */
     list-style-type: none;
-    padding-left: 3rem;
+    padding-left: 1rem;
     padding-right: 3rem;
     z-index: 20;
-    margin-right: 2.5rem;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
 }
 
 li {
@@ -153,12 +162,14 @@ li {
     cursor: move;
     display: flex;
     flex-direction: row;
+    /* border-left: 0.1rem solid rgb(161, 161, 161);
+    border-right: 0.1rem solid rgb(161, 161, 161); */
 }
 li:first-child {
     border-top: none;
 }
 li:last-child {
-    border-bottom: 0.1rem solid rgb(161, 161, 161);
+    border-bottom: .1rem solid rgb(161, 161, 161);
 }
 
 li:hover {
@@ -209,7 +220,6 @@ li:hover .draggable {
 
 
 
-
 .draggable {
     position: absolute;
     right: 0;
@@ -222,7 +232,7 @@ li:hover .draggable {
     grid-column-gap: .05rem;
     grid-row-gap: .1rem;
     justify-content: center;
-    margin-right: 6.5rem;
+    margin-right: 4rem;
     margin-top: 1rem;
 }
 

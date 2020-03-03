@@ -16,6 +16,34 @@ html {
     font-family: 'Open Sans', sans-serif;
 }
 
+.tooltip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20rem;
+    height: 10rem;
+}
+
+.tooltip span {
+    visibility: hidden;
+    position: absolute;
+    bottom: .5rem;
+    left: 1rem;
+    width: 7rem;
+    background-color: rgba(37, 37, 37, 0.753);
+    color: white;
+    font-size: 1.2rem;
+    line-height: 1rem;
+    text-align: center;
+    padding: .5rem;
+    border-radius: .6rem;
+    z-index: 20;
+}
+
+.tooltip:hover span {
+    visibility: visible;
+  }
+
 #editing-div {
     background: rgba(0, 0, 0, 0.68);
     position: fixed;
