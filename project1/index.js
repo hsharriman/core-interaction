@@ -104,11 +104,13 @@ function resetButtons(presetType) {
         var btn = document.getElementById("btn-" + i.toString());
         console.log("change color"); 
         if (i==presetType) {
-            btn.style.background = "rgb(97, 167, 228)";
-            btn.style.color = "white";
+            btn.style.background = "white";
+            btn.style.color = "var(--active-text-color)";
+            btn.style.fontWeight = "700";
         } else {
-            btn.style.background = "var(--hover)";
+            btn.style.background = "white";
             btn.style.color = "var(--text-color)";
+            btn.style.fontWeight = "500";
         }
     }
 }

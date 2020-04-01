@@ -56,12 +56,16 @@
             <div class="general-header" style="border-top: 2px solid var(--border-color);">Content Options</div>
             <div class="control-header" onclick="expandPresets(this)" id="presets">Some of the Infinite Series of Times <span id="chev-pre" class="chevron">&lsaquo;</span><div class="expand"></div></div>
             <div id="preset-panel" class="panel">
-                <div id="master-controls">
+                <!-- <div id="master-controls">
                         <button class="btn" onclick="preset(1)" id="btn-1">A Branch of Reality</button>
                         <button class="btn" onclick="preset(2)" id="btn-2">Another Branch of Reality</button>
                         <button class="btn" onclick="preset(3)" id="btn-3">Yet Another Branch of Reality</button>
                         <button class="btn" onclick="preset(4)" id="btn-4">And Yet Another Branch of Reality</button>
-                </div>
+                </div> -->
+                <div class="checkbox-header" onclick="preset(1)" id="btn-1" style="border-top: none;">A Branch of Reality</div>
+                <div class="checkbox-header" onclick="preset(2)" id="btn-2">Another Branch of Reality</div>
+                <div class="checkbox-header" onclick="preset(3)" id="btn-3">Yet Another Branch of Reality</div>
+                <div class="checkbox-header" onclick="preset(4)" id="btn-4" style="margin-bottom: 2rem;">And Yet Another Branch of Reality</div>
                 <!-- <div id="radios"> -->
                 <!-- <div class="radio-header">
                         <label class="radio">

@@ -1,0 +1,106 @@
+@import url("gordita.css");
+@import url("https://use.typekit.net/sbp7nan.css");
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+:root {
+    --background-color: white;
+    --head-color: red;
+    --sub-color: black;
+    --catch-color: black;
+    --text-color: black;
+}
+
+html {
+    font-size: 62.5%;
+    background-color: var(--background-color);
+    overflow: hidden;
+}
+
+body, h1, h2, h3, h4, h5, p, span {
+    font-family: 'nimbus-sans-extended', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+h1 {
+    font-size: 9rem;
+}
+
+#top-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 150;
+    width: 35rem;
+    height: 25rem;
+    background-color: rgb(95, 95, 95);
+    padding-left: 2rem;
+    padding-top: 2rem;
+    border-radius: 0 0rem 2rem 0rem;
+    opacity: 90%;
+}
+
+#top-container h1 {
+    font-family: 'input-mono', monospace;
+    font-size: 1.6rem;
+    color: white;
+}
+
+input {
+    font-family: 'input-mono', monospace;
+    font-size: 1.1rem;
+    color: black;
+    width: 30rem;
+    z-index: 1;
+    border: 2px black solid;
+    padding: .5rem;
+}
+
+#body-container {
+    overflow: visible;
+    width: 100vw;
+    height: 98vh;
+}
+
+.phrase {
+    font-family: 'gill-sans-nova', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 10rem;
+    font-size: 10rem;
+    background-color: transparent;
+    justify-content: left;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+.rectangle {
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    top: 0;
+    left: 80%;
+    background-color: black;
+    opacity: 60%;
+}
+
+.circle {
+    width: 40rem;
+    height: 40rem;
+    position: absolute;
+    top: 0;
+    left: 80%;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 80%;
+}
+
+.line {
+    width: 20rem;
+    height: 2rem;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+}
