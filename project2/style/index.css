@@ -4,7 +4,7 @@
 :root {
     --background-color: white;
     --head-color: red;
-    --sub-color: black;
+    --blue-color: rgb(38, 125, 255);
     --catch-color: black;
     --text-color: black;
 }
@@ -16,13 +16,26 @@ html {
 }
 
 body, h1, h2, h3, h4, h5, p, span {
-    font-family: 'nimbus-sans-extended', sans-serif;
-    font-weight: 700;
+    font-family: 'Gordita Bold', sans-serif;
     font-style: normal;
+    color: white;
 }
 
 h1 {
-    font-size: 9rem;
+    font-size: 2.4rem;
+}
+
+#top-btn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    width: 4rem;
+    height: 4rem;
+    background-color: transparent;
+    color: black;
+    margin: 2rem;
+    cursor: pointer;
 }
 
 #top-container {
@@ -31,20 +44,97 @@ h1 {
     left: 0;
     z-index: 150;
     width: 35rem;
-    height: 25rem;
-    background-color: rgb(95, 95, 95);
+    height: 100vh;
+    background-color: black;
     padding-left: 2rem;
     padding-top: 2rem;
     border-radius: 0 0rem 2rem 0rem;
-    opacity: 90%;
+    transition: 1s ease;
+    display: block;
 }
 
-#top-container h1 {
-    font-family: 'input-mono', monospace;
+.toolbar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 2rem;
+    grid-row-gap: 0px;
+    justify-content: center;
+    position: relative;
+    width: 31rem;
+    max-height: 7rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.toolbtn {
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid red;
+    border-radius: 50%;
+    overflow: hidden;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+#text-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-content: left;
+    position: absolute;
+    z-index: -1;
+    width: 90vw;
+    top: 0;
+    left: 0;
+    height: 90vh;
+    overflow: visible;
+    margin-top: 5vh;
+    margin-left: 37rem;
+}
+
+#dec-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(32, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    justify-content: left;
+    position: absolute;
+    z-index: -2;
+    width: 90vw;
+    top: 0;
+    left: 0;
+    height: 90vh;
+    overflow: visible;
+    margin-top: 5vh;
+    margin-left: 37rem;
+}
+
+form .lbl {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    font-size: 1.8rem;
+}
+
+form p {
+    margin-left: 1rem;
     font-size: 1.6rem;
-    color: white;
+    margin-top: .5rem;
 }
-
+form .check {
+    justify-self: left;
+    margin: 0;
+    margin-left: 3rem;
+    width: 2rem;
+    height: 2rem;
+    border: 2px black solid;
+}
 input {
     font-family: 'input-mono', monospace;
     font-size: 1.1rem;
@@ -53,6 +143,29 @@ input {
     z-index: 1;
     border: 2px black solid;
     padding: .5rem;
+    margin: 1rem;
+}
+
+form .btn {
+    font-family: 'Gordita Bold', sans-serif;
+    width: 31rem;
+    padding: 1rem;
+    font-size: 1.8rem;
+    background-color: red;
+    color: white;
+}
+
+textarea {
+    color: black;
+    z-index: 1;
+    border: 2px black solid;
+    padding: .5rem;
+    margin: 1rem;
+    resize: none;
+}
+
+textarea:active {
+    border: 2px solid red;
 }
 
 #body-container {
@@ -76,31 +189,80 @@ input {
     z-index: -2;
 }
 
+.title {
+    font-family: 'gill-sans-nova', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    line-height: 20rem;
+    font-size: 15rem;
+    background-color: transparent;
+    justify-content: left;
+    color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    /* max-width: 40%; */
+}
+
+.subtitle {
+    font-family: 'gill-sans-nova', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 6.2rem;
+    font-size: 6rem;
+    background-color: transparent;
+    justify-content: left;
+    color: black;
+    max-width: 40%;
+}
+
+.text {
+    font-family: 'gill-sans-nova', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 3.2rem;
+    font-size: 3rem;
+    background-color: transparent;
+    justify-content: left;
+    color: black;
+    max-width: 30%;
+}
+
 .rectangle {
     width: 20rem;
     height: 20rem;
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 80%;
+    left: 80%; */
     background-color: black;
-    opacity: 60%;
+    opacity: 90%;
+    justify-content: left;
+}
+
+.square {
+    width: 30rem;
+    height: 30rem; 
+    background-color: black;
+    opacity: 90%;   
+    justify-content: left;
 }
 
 .circle {
     width: 40rem;
     height: 40rem;
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 80%;
-    background-color: red;
+    left: 80%; */
+    background-color: black;
     border-radius: 50%;
-    opacity: 80%;
+    opacity: 90%;
+    justify-content: left;
 }
 
 .line {
     width: 20rem;
     height: 2rem;
-    position: absolute;
-    top: 25%;
-    left: 50%;
+    justify-content: left;
+    background-color: black;
 }
