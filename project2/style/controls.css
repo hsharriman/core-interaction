@@ -64,9 +64,6 @@ form {
     box-shadow: 3px -3px 12px 0px rgba(0,0,0,0.62);
 }
 
-#download {
-}
-
 #generate {
     color: white;
     background-color: black;
@@ -182,43 +179,37 @@ textarea:focus {
     padding-bottom: 1.5rem;
 }
 
-.subin:nth-child(1) {
+#subinput {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 2; 
 }
 
-.subin:nth-child(2) {
+#subinput2 {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 2;
     grid-column-end: 3; 
 }
 
-.subin:nth-child(3) {
+#subinput3 {
     grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 3;
     grid-column-end: 4; 
 }
 
-/* .textin {
-    margin-top: 0;
-    font-size: 1.6rem;
-    margin-right: 0;
-    width: 20vw;
-    height: 6.4rem;
-    margin-bottom: 0;
-} */
-
-#txtinput {
+.textin {
     margin-top: 2rem;
     font-size: 1.6rem;
     margin-right: 0;
     width: 20vw;
     height: 6.4rem;
     margin-bottom: 0;
+}
+
+#txtinput {
     grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 1;
@@ -226,12 +217,6 @@ textarea:focus {
 }
 
 #txtinput2 {
-    margin-top: 2rem;
-    font-size: 1.6rem;
-    margin-right: 0;
-    width: 20vw;
-    height: 6.4rem;
-    margin-bottom: 0;
     grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 2;
@@ -239,11 +224,6 @@ textarea:focus {
 }
 
 #txtinput3 {
-    margin-top: 2rem;
-    font-size: 1.6rem;
-    margin-right: 0;
-    width: 20vw;
-    height: 6.4rem;
     margin-bottom: 0;
     grid-row-start: 3;
     grid-row-end: 4;
@@ -261,27 +241,49 @@ textarea:focus {
     html {
         font-size: 62.5%;
     }
+    
+    .btn {
+        padding-left: 1rem;
+        font-size: 3.5rem;
+    }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     html {
         font-size: 62.5%;
     }
 
     #controls {
         flex-wrap: wrap;
+        height: auto;
     }
     .titlein {
+        font-size: 7rem;
         width: 96vw;
     }
     .subin {
         width: 30vw;
+        font-size: 2rem;
     }
     .textin {
         width: 30vw;
+        font-size: 1.2rem;
     }
 
     #refresh {
         width: 96vw;
+    }
+
+    .btn-container {
+        position: static;
+        margin-top: 3rem;
+        width: 84%;
+        margin-left: 7%;
+    }
+}
+
+@media print {
+    #controls {
+        display: none;
     }
 }

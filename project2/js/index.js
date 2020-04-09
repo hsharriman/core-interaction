@@ -581,30 +581,6 @@ function queryMode() {
     }
 }
 
-function expand(ele) {
-    ele.style.marginLeft = "35rem";
-    ele.style.marginBottom = "0";
-    ele.style.marginTop = "0";
-    ele.style.height = "100vh";
-
-    // var text = document.getElementById('text-grid');
-    // var dec = document.getElementById('dec-grid');
-    // text.style.width = "calc(90vw - 35rem)";
-    // text.style.height = "100vh";
-    // dec.style.width = "calc(90vw - 35rem)";
-    // dec.style.height = "100vh";
-}
-
-function fullscreen(ele) {
-    ele.style.marginLeft = "3vw";
-    ele.style.marginBottom = "3vh";
-    ele.style.marginTop = "3vh";
-    ele.style.height = "94vh";  
-    
-    // var text = document.getElementById('text-grid');
-    // var dec = document.getElementById('dec-grid');
-    // text.style.width = "90vw";
-    // text.style.height = "88vh";
-    // dec.style.width = "90vw";
-    // dec.style.height = "88vh";
+function download() {
+    window.print();
 }
