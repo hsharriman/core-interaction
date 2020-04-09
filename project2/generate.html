@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+    <link rel="stylesheet" type="text/css" href="style/controls.css">
+    <link rel="stylesheet" type="text/css" href="style/generate.css">
+    <script src="js/index.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Swiss Modernism Generator</title>
+</head>
+<body onload="onLoad()">
+    <!-- <div id="top-btn" onclick="showSideBar()"><img src="https://img.icons8.com/material-rounded/30/000000/edit.png"/></div>
+    <div id="top-container">
+            <div class="sidebtn" style="top: 2rem;" onclick="hideSideBar()"><img src="https://img.icons8.com/material-rounded/24/000000/arrow-pointing-left.png"/></div>
+            <div class="sidebtn" style="top: 14rem;"><img src="https://img.icons8.com/material-rounded/30/000000/download.png"/></div>
+            
+            
+    </div> -->
+    <div id="controls">
+        <div id="arrow">&#8249;</div>
+        <div id="form-container">
+                <form id="form" onsubmit="return controller.listenInput()">
+                        <!-- <label for="txtinput">Add Some Text</label> -->
+                        <!-- <label for="titleinput" class="lbl">Title</label> -->
+                        <input type="text" name="titleinput" id="titleinput" placeholder="12 chars max" autofocus maxlength="12" rows="1" cols ="15" class="titlein" value="Swiss Intl." autocomplete="off"><br>
+                        <!-- <input type="text" name="titleinput" id="titleinput" placeholder="12 chars max" maxlength="12" style="font-size:4rem;" autofocus value="swiss intl."> -->
+                        <!-- <label for="subinput" class="lbl">Subtitles</label> -->
+                        <textarea name="subinput" id="subinput" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin">modernism generator</textarea>
+                        <textarea name="subinput2" id="subinput2" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin">edit the text</textarea>
+                        <textarea name="subinput3" id="subinput3" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin">save your favorites</textarea><br>
+                        <!-- <label for="txtinput" class="lbl">Text</label> -->
+                        <textarea name="txtinput" id="txtinput" placeholder="(max 140 characters)"  rows="4" maxlength="140">Control the text, let the site do the rest."</textarea>
+                        <textarea name="txtinput2" id="txtinput2" placeholder="(max 140 characters)" rows="4" maxlength="140">This project was created at Parsons School of Design, for the Spring 2020 offering of PUCD2125.</textarea>
+                        <textarea name="txtinput3" id="txtinput3" placeholder="(max 140 characters)" rows="4" maxlength="140">This project was created at Parsons School of Design, for the Spring 2020 offering of PUCD2125."</textarea>
+                        <!-- <h1>Editor</h1> -->
+
+                        <!-- <input type="submit" class="btn" value="Generate"> -->
+                </form>
+                <div class="btn-container">
+                        <input type="submit" class="btn"value="Generate" form="form" id="generate">
+                        <input type="submit" class="btn" id="download" value="Download" onclick="download()">
+                </div>
+        </div>
+
+        <!-- <div id="download"></div> -->
+    </div>
+    <!-- <div id="body-container">
+    </div> -->
+    <div id="main-content">
+        <div id="text-grid"></div>
+        <div id="dec-grid"></div>
+    </div>
+</body>
+<script>
+    function showSideBar() {
+        var main = document.getElementById('main-content');
+        document.getElementById('top-container').style.left = "0rem";
+
+        expand(main);  
+    }
+
+    function hideSideBar() {
+        document.getElementById('top-container').style.left = "-40rem";
+        var main = document.getElementById('main-content');
+
+        fullscreen(main);
+    }
+
+    // document.querySelector('#txtSearch').addEventListener('keypress', function (e) {
+    // if (e.key === 'Enter') {
+    //   controller.listenInput();
+    // }
+    // });
+</script>
+</html>

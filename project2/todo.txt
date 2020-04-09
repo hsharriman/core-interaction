@@ -1,0 +1,62 @@
+REGARDING TEXT ON POSTER:
+   - absolute position method.
+      - set max width/height for each type
+      - track overlaps
+      - flow of information either goes TOP to BOTTOM or BOTTOM to TOP
+      - flow of subsections goes TOP DOWN or LEFT TO RIGHT
+      - title picks position first
+      -width determined by how much space left between x, y and the edge
+      
+class GridBox {
+    constructor(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.width = w;
+        this.height = h;
+        this.x2 = x + w;
+        this.y2 = y + h;
+    }
+
+    surrounds(x, y) {
+        return (this.x <= x && this.y <= y && this.x2 >= x && this.y2 >= y);
+    }
+
+    //if a proposed box STARTS or ENDS inside of existing box, there is overlap.
+    overlaps(x, y, w, h) {
+        return (this.surrounds(x, y) || this.surrounds(x+w, y+h)); 
+    }
+}
+
+class GridTracker {
+    constructor() {
+        this.takenSpots = [];
+    }
+
+    reset() {
+        this.takenSpots = [];
+    }
+
+    addBox(x, y, w, h) {
+        this.takenSpots.push(new GridBox(x, y, w, h));
+    }
+
+    causesOverlap(x, y, w, h) {
+        for (var i=0; i<this.takenSpots.length; i++) {
+            if (this.takenSpots[i].overlaps(x, y, w, h)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    pickEmptySpot(xmax, ymax, w, h) {
+        var x = randomNumber(xmax);
+        var y = randomNumber(ymax);
+        if (!this.causesOverlap(x, y, w, h)) {
+            this.addBox(x, y, w, h);
+            return [x, y];
+        } else {
+            return this.pickEmptySpot(xmax, ymax, w, h);
+        }
+    }
+}

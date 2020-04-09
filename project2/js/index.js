@@ -1,3 +1,88 @@
+class BoundingBox {
+    constructor(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.x2 = x+w;
+        this.y2 = y+h;
+    }
+
+    ptWithin(x, y) {
+        if (this.ptBetweenX(x) && this.ptBetweenY(y)) {
+            return true;
+        }
+        return false;
+    }
+
+    plotBox() {
+        var ele = document.createElement('div');
+        ele.classList.add('square');
+        ele.style.border = "2px solid purple";
+        ele.style.backgroundColor = "transparent";
+        ele.style.zIndex = -7;
+        ele.style.left = (this.x * xunit).toString() + "px";
+        ele.style.top = (this.y * yunit).toString() + "px";
+        ele.style.width = (this.w * xunit).toString() + "px";
+        ele.style.height = (this.h * yunit).toString() + "px";
+        var container = document.getElementById('text-grid');
+        container.appendChild(ele);
+    }
+
+    ptBetweenX(x) {
+        return (this.x <= x && this.x2 > x);
+    }
+
+    ptBetweenY(y) {
+        return (this.y <= y && this.y2 > y);
+    }
+
+    causesOverlap(box2) {
+        if (this.ptWithin(box2.x, box2.y) || this.ptWithin(box2.x2, box2.y2)) {
+            //box starts or ends inside other box
+            return true;
+        } else if (box2.ptWithin(this.x, this.y) || box2.ptWithin(this.x2, this.y2)) {
+            return true;
+        } else if (this.ptBetweenX(box2.x2) && this.ptBetweenY(box2.y)) {
+            return true;
+        } else if (this.ptBetweenY(box2.y2) && this.ptBetweenX(box2.x)) {
+            return true;
+        } else if (this.ptBetweenX(box2.x) && this.ptBetweenX(box2.x2) && this.y2 >= box2.y2|| this.ptBetweenY(box2.y) && this.ptBetweenY(box2.y2) && this.x2 >= box2.x2) {
+            return true;
+        } else if (this.ptBetweenX(box2.x) && this.ptBetweenX(box2.x2) && box2.ptBetweenY(this.y) && box2.ptBetweenY(this.y2)) {
+            return true;
+        } else if (this.ptBetweenY(box2.y) && this.ptBetweenY(box2.y2) && box2.ptBetweenX(this.x) && box2.ptBetweenX(this.x2)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+class BoxTracker {
+    constructor() {
+        this.boxes = [];
+    }
+
+    reset() {
+        this.boxes = [];
+    }
+
+    isValid(x, y, w, h) {
+        var temp = new BoundingBox(x, y, w, h);
+        for (var i=0; i<this.boxes.length; i++) {
+            if (this.boxes[i].causesOverlap(temp)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    addBox(x, y, w, h) {
+        var box = new BoundingBox(x, y, w+1, h+1);
+        this.boxes.push(box);
+    }
+}
+
 class TextObject {
     constructor(inTag, id, classType) {
         this.ele = {innerHTML: ""};
@@ -5,25 +90,44 @@ class TextObject {
         this.id = id;
         this.classType = classType;
         this.isHorizontal = true;
+        this.w;
+        this.h;
     }
 
-    updateText(rmin, rmax) {
+    updateText(boxes, titleHeight) {
         var newText = document.getElementById(this.inTag).value;
-        console.log(newText);
-        // if (this.ele.innerHTML != newText) {
-        //     this.addText(newText);
-        //     this.setPosition(rmin, rmax);
-        // }
-        //try changing on every generate
+
         this.addText(newText);
-        this.setPosition(rmin, rmax);
+        if (this.classType == "title") {
+            var possiblePairs = this.makePairs(0, cols - this.w, -1, rows - 1);
+            titleHeight = this.setPosition(boxes, possiblePairs);
+        } else {
+            if (titleHeight > rows / 4) {
+                var possiblePairs = this.makePairs(0, cols, 0, titleHeight);
+                this.setPosition(boxes, possiblePairs);
+            } else {
+                var possiblePairs = this.makePairs(0, cols, titleHeight, rows - this.h);
+                this.setPosition(boxes, possiblePairs);
+            }
+        }
+        return [newText, titleHeight];
+    }
+
+    makePairs(xmin, xmax, ymin, ymax) {
+        var possibleXs = range(xmin, xmax);
+        var possibleYs = range(ymin, ymax);
+        var pairs = [];
+        for (var i=0; i<possibleXs.length; i++) {
+            for (var n=0; n<possibleYs.length; n++) {
+                pairs.push([possibleXs[i], possibleYs[n]]);
+            }
+        }
+        return pairs;
     }
 
     addText(frag) {
-        if (frag == "") { return; }
 
         if (document.getElementById(this.id) != null) {
-            // this.ele = document.getElementById(this.id);
             this.ele.innerHTML = frag;
         } else {
             this.ele = document.createElement('div');
@@ -34,204 +138,208 @@ class TextObject {
             var container = document.getElementById("text-grid");
             container.appendChild(this.ele);
         }
+        if (frag == "") { return; }
+        this.setColor();
+        this.setSize(frag);
+        this.setOrientation();
+        this.setWidthHeight();
     }
 
-    setCase(isUpper) {
-        if (isUpper) {
-            this.ele.innerHTML = this.ele.innerHTML.toUpperCase();
+    setWidthHeight() {
+        var positionData = this.ele.getBoundingClientRect();
+        var remW = positionData.width % xunit;
+        var remH = positionData.height % yunit;
+        if (remW >= xunit / 2) {
+            this.w = Math.ceil(positionData.width / xunit);
+        } else if (remW < xunit /2) {
+            this.w = Math.floor(positionData.width / xunit);
+        }
+        if (remH >= yunit / 2) {
+            this.h = Math.ceil(positionData.height / yunit);
+        } else if (remH < yunit / 2) {
+            this.h = Math.floor(positionData.height / yunit);
+        }
+    }
+
+    setSize(frag) {
+        if (this.ele.id == "title") {
+            if (frag.length > 7) {
+                this.ele.style.fontSize = "20rem";
+            } else if (frag.length <=7 && frag.length > 3){
+                this.ele.style.fontSize = "30rem";
+            } else {
+                this.ele.style.fontSize = "55rem";
+            }
+        }
+        if (queryMode() == "portrait") {
+            if (this.classType == "subtitle") {
+                this.ele.style.fontSize = "2rem";
+                this.ele.style.lineHeight = "2rem";
+                this.ele.style.opacity = "80%";
+            }
+            if (this.classType == "text") {
+                this.ele.style.opacity = "80%";
+            }
         } else {
-            this.ele.innerHTML = this.ele.innerHTML.toLowerCase();
+            if (this.classType == "subtitle") {
+                this.ele.style.fontSize = "5rem";
+                this.ele.style.lineHeight = "5rem";
+                this.ele.style.opacity = "90%";
+            }
+            if (this.classType == "text") {
+                this.ele.style.opacity = "100%";
+            }
         }
     }
 
-    setPosition(rmin, rmax) {
-        //pick an orientation,
+    setColor() {
         if (this.ele.style != null) {
-            this.setOrientation();
-
-            //set position on grid
-            this.ele.style.gridColumnStart = randomNumber(cols-2).toString();
-    
-            var row = randomNumber(rmax);
-            if (row < rmin) { row = rmin; }
-            this.ele.style.gridRowStart = row.toString();
-        }
-    }
-
-    setColor(color) {
-        if (this.ele.style != null) {
+            if (backgroundColor == "black") {
+                var color = "var(--white)";
+            } else {
+                var color = "black";
+            }
             this.ele.style.color = color;
         }
     }
 
     setOrientation() {
         if (randomNumber(100) <= 40) {
-            this.ele.style.transform = "rotate(90deg)";
+            this.isHorizontal = false;
+            this.ele.style.writingMode = "vertical-rl";
+            this.ele.style.textOrientation = "mixed";
         } else {
-            this.ele.style.transform = "rotate(0deg)";
+            this.isHorizontal = true;
+            this.ele.style.writingMode = "horizontal-tb";
+        }
+    }
+
+    setPosition(boxes, possiblePairs) { 
+        if (possiblePairs.length > 0) {
+            var coord = possiblePairs.splice(randomNumber(possiblePairs.length), 1)[0];
+            var x = coord[0];
+            var y = coord[1];
+            var isValid = boxes.isValid(x, y, this.w, this.h);
+            if (isValid) {
+                boxes.addBox(x, y, this.w, this.h);
+                this.ele.style.left = (x * xunit).toString() + "px";
+                this.ele.style.top = (y * yunit).toString() + "px";
+                if (this.classType == "title" && !this.isHorizontal) { return 0;}
+                return y;
+            } else {
+                return this.setPosition(boxes, possiblePairs);
+            }    
+        } else {
+            //if cannot find good spot for the phrase
+            this.ele.style.left = (randomNumber(cols - 1) * xunit).toString() + "px";
+            this.ele.style.top = (randomNumber(rows - 1) * yunit).toString() + "px";
+            this.fitText();
+            this.setSecondaryColor();
+            return 0;
+        }
+    }
+    
+    fitText() {
+        if (this.classType != "title") {
+            this.ele.style.fontSize = "1.2rem";
+            this.ele.style.lineHeight = "1.4rem";
+            this.ele.style.letterSpacing = "0";
+        }
+    }
+
+    setSecondaryColor() {
+        if (this.ele.style != null) {
+            if (backgroundColor == "var(--white)") {
+                this.ele.style.color = "var(--dark-red)";
+                this.ele.style.opacity = "60%";
+            } else if (backgroundColor == "var(--yellow)" || backgroundColor == "black") {
+                this.ele.style.color = "var(--light-gray)";
+                this.ele.style.opacity = "80%;"
+            } else {
+                this.ele.style.color = "var(--white)";
+                this.ele.style.opacity = "80%";
+            }
         }
     }
 }
 
-class ArtObject {
-    constructor() {        
-        this.titleMin = 3;
-        this.titleMax;
-        this.subsMin;
-        this.subsMax;
-        this.textMin;
-        this.textMax = rows - 2;
-        this.calculateTextBounds();
-        
+class TextGrid {
+    constructor() {                
         this.title = new TextObject("titleinput", "title", "title");
-        this.subs = [new TextObject("subinput", "subtitle", "subtitle"),
+        this.texts = [new TextObject("subinput", "subtitle", "subtitle"),
                     new TextObject("subinput2", "subtitle2", "subtitle"),
-                    new TextObject("subinput3", "subtitle3", "subtitle")];
-        this.text = new TextObject("txtinput", "text", "text");
+                    new TextObject("subinput3", "subtitle3", "subtitle"),
+                    new TextObject("txtinput", "text", "text"),
+                    new TextObject("txtinput2", "text2", "text"),
+                    new TextObject("txtinput3", "text3", "text")];
+        this.boxes = new BoxTracker();
+        this.titleHeight = 0;
     }
 
     update() {
-        this.calculateTextBounds();
-        this.title.updateText(this.titleMin, this.titleMax);
-        for (var i=0; i<this.subs.length; i++) {
-            this.subs[i].updateText(this.subsMin, this.subsMax);
+        this.boxes.reset();
+        var titleData = this.title.updateText(this.boxes, this.titleHeight);
+        this.titleHeight = titleData[1];
+        for (var i=0; i<this.texts.length; i++) {
+            this.texts[i].updateText(this.boxes, this.titleHeight);
         }
-        this.text.updateText(this.textMin, this.textMax);
-
-        this.updateCaps();
-        this.setColors();
-    }
-
-    calculateTextBounds() {
-        this.titleMax = randomNumber(rows - 10);
-
-        //subtitle min/max
-        this.subsMin = this.titleMax + 5;
-        this.subsMax = this.subsMin + randomNumber(rows - this.subsMin + 4);
-        
-        //text min/max
-        this.textMin = this.subsMin + 2;
-        this.textMax = rows - 2;
-    }
-    
-    updateCaps() {
-        var isUpper = randomNumber(100) >= 50 ? true : false;
-        this.title.setCase(isUpper);
-        this.subs.forEach(function(sub) {
-            sub.setCase(isUpper);
-        });
-    }
-    
-    setColors() {
-        var incRed = document.getElementById("include-red").checked;
-        var incBlue = document.getElementById("include-blue").checked;
-
-        if (!incRed && !incBlue) {
-            this.title.setColor("black");
-            this.subs.forEach(function(sub) {
-                sub.setColor("black");
-            });
-            this.text.setColor("black");
-        } else if (incRed && !incBlue) {
-            this.colorHelper("red");
-        } else if (incBlue && !incRed) {
-            this.colorHelper("var(--blue-color)");
-        } else if (incRed && incBlue) {
-            var maxRed = 1;
-            var maxBlue = 1;
-            for (var i=0; i<3; i++) {
-                var activeColor = (randomNumber(10) < 6 && maxRed > 0) ? "red" : "var(--blue-color)";
-                if (i==0) {
-                    if (randomNumber(10) > 8) {
-                        this.title.setColor(activeColor);
-                        if (activeColor == "red") {maxRed--;}
-                        else { maxBlue--;}
-                    } else {
-                        this.title.setColor('black');
-                    }
-                } else if (i==1) {
-                    if (randomNumber(10) > 5) {
-                        this.subs.forEach(function (sub) {
-                            sub.setColor(activeColor);
-                        });
-                        if (activeColor == "red") {maxRed--;}
-                        else { maxBlue--;} 
-                    } else {
-                        this.subs.forEach(function (sub) {
-                            sub.setColor('black');
-                        });
-                    } 
-                } else if (i==2) {
-                    if (randomNumber(10) < 3) {
-                        this.text.setColor(activeColor);
-                        if (activeColor == "red") {maxRed--;}
-                        else { maxBlue--;}
-                    } else {
-                        this.text.setColor('black');
-                    }
-                }
-            }
-        }
-    } 
-    
-    colorHelper(color) {
-        var max = 2;
-        for (var i=0; i<3; i++) {
-            if (i==0) {
-                if (randomNumber(10) > 8 && max > 0) {
-                    this.title.setColor(color);
-                } else {
-                    this.title.setColor('black');
-                }
-            } else if (i==1) {
-                if (randomNumber(10) > 5 && max > 0) {
-                    this.subs.forEach(function(sub) {
-                        sub.setColor(color);
-                    });
-                } else {
-                    this.subs.forEach(function(sub) {
-                        sub.setColor('black');
-                    });
-                }
-            } else if (i==0) {
-                if (randomNumber(10) > 3 && max > 0) {
-                    this.text.setColor(color);
-                } else {
-                    this.text.setColor('black');
-                }
-            }
-            max--;
-        }
+        return titleData[0];
     }
 }
 
 class ShapeObject {
     constructor() {
-        this.options = ["line", "square", "line", "rectangle", "line", "circle", "line"];
-        this.shapes = [];
+        this.options = ["square", "rectangle", "circle", "donut", "frame"];
         this.rotations = ["rotate(0deg)", "rotate(90deg)"];
+        this.letterSelected = false;
     }
 
-    update() {
+    update(titleStr) {
         var node = document.getElementById('dec-grid');
+        //randomize opacity
+        node.style.opacity = (randomRange(70, 100)).toString() + "%";
+    
         node.querySelectorAll('*').forEach(n => n.remove());
-        var numObjs = randomNumber(10);
+        var numObjs = randomNumber(5);
+        this.lettersAllowed();
         for (var i=0; i<numObjs; i++) {
-            var ele = document.createElement('div');
-            var classType = this.options[randomNumber(this.options.length)]
-            ele.classList.add(classType);
-
-            this.setPosition(ele);
-            this.setScale(ele, classType);
+            var ele = this.makeRandomObject(titleStr);
+            // this.setScale(ele, classType);
             this.setOrientation(ele);
+            this.setPosition(ele);
             node.appendChild(ele);
         }
     }
 
+    lettersAllowed() {
+        this.letterSelected = randomNumber(10) >= 5 ? true: false;
+    }
+
+    makeRandomObject(titleStr) {
+        if (this.letterSelected) {
+            return this.makeLetter(titleStr);
+        } else {
+            switch (this.options[randomNumber(this.options.length)]) {
+                case "square":
+                    return this.makeSquare();
+                case "rectangle":
+                    return this.makeRectangle();
+                case "circle":
+                    return this.makeCircle();
+                case "donut":
+                    return this.makeDonut();
+                case "frame":
+                    return this.makeFrame();
+                default: return;
+            }
+        }
+    }
+
     setPosition(ele) {
-        ele.style.gridColumnStart = randomNumber(cols).toString();
-        var row = randomNumber(rows);
-        ele.style.gridRowStart = row.toString();
+        var x = randomNumber(cols - 4) * xunit;
+        var y = randomNumber(rows - 4) * yunit;
+        ele.style.top = y.toString() + "px";
+        ele.style.left = x.toString() + "px";
     }
 
     setOrientation(ele) {
@@ -242,30 +350,126 @@ class ShapeObject {
         }
     }
 
-    setScale(ele, classType) {
-        if (classType == "line") {
-            ele.style.width = (40 + randomNumber(60)).toString() + "vw";
-            ele.style.height = (2 + randomNumber(20)).toString() + "px";
-        } else if (classType == "rectangle") {
-            ele.style.width = (6 + randomNumber(20)).toString() + "rem";
-            ele.style.height = (6 + randomNumber(20)).toString() + "rem";
-        } else {
-            ele.style.width = (10 + randomNumber(40)).toString() + "rem";
-            ele.style.height = ele.style.width;
+    setColor(ele) {
+        var color = colors[randomNumber(colors.length)];
+        ele.style.backgroundColor = color;
+        if (color == backgroundColor || color == "black") {
+            return this.setColor(ele);
         }
+        if (backgroundColor == "black" && color == "var(--white)") {
+            return this.setColor(ele);
+        }
+
+        return color;
+    }
+
+    setFontColor(ele) {
+        var color = colors[randomNumber(colors.length)];
+        ele.style.color = color;
+        if (color == backgroundColor || color == "black") {
+            this.setFontColor(ele);
+        }
+    }
+
+    makeSquare() {
+        var ele = document.createElement('div');
+        ele.classList.add('square');
+        this.setColor(ele);
+        return ele;
+    }
+
+    makeCircle() {
+        var ele = document.createElement('div');
+        ele.classList.add('circle');
+
+        this.setColor(ele);
+        return ele;
+    }
+    
+    makeDonut() {
+        var container = document.createElement('div');
+        container.classList.add('shape-container');
+        var width = 20 + randomNumber(60);
+        container.style.width = width.toString() + "rem";
+        container.style.height = container.style.width;
+
+        var big = this.makeCircle();
+        big.style.width = container.style.width;
+        big.style.height = container.style.width;
+        big.style.zIndex = "-50";
+        
+        var little = this.makeCircle();
+        little.style.width = (width - randomNumber(width-10) + 1).toString() + "rem";
+        little.style.height = little.style.width;
+        little.style.backgroundColor = backgroundColor;
+        little.style.zIndex = "-10";
+
+        container.appendChild(big);
+        container.appendChild(little);
+        return container;
+    }
+
+    makeFrame() {
+        var container = document.createElement('div');
+        container.classList.add('shape-container');
+        var width = 20 + randomNumber(60);
+        container.style.width = width.toString() + "rem";
+        container.style.height = container.style.width;
+
+        var big = this.makeSquare();
+        big.style.width = container.style.width;
+        big.style.height = container.style.width;
+        big.style.zIndex = "-50";
+        
+        var little = this.makeSquare();
+        little.style.width = (width - randomNumber(width-10) + 1).toString() + "rem";
+        little.style.height = little.style.width;
+        little.style.backgroundColor = backgroundColor;
+        little.style.zIndex = "-10";
+
+        container.appendChild(big);
+        container.appendChild(little);
+        return container;
+    }
+
+    makeRectangle() {
+        var ele = document.createElement('div');
+        ele.classList.add('square');
+        ele.style.width = (20 + randomNumber(50)).toString() + "rem";
+        ele.style.height = (20 + randomNumber(50)).toString() + "rem";
+        this.setColor(ele);
+        return ele;
+    }
+
+    makeLetter(frag) {
+        var ele = document.createElement('div');
+        ele.classList.add('letter');
+        var size = (50 + randomNumber(50)).toString() + "rem";
+        ele.style.width = size;
+        ele.style.fontSize = size;
+        ele.style.opacity = "90%";
+        this.setFontColor(ele);
+        
+        var cleaned = removeArticles(frag);
+        ele.innerHTML = cleaned[0];
+        return ele;
     }
 }
 
 class PageHandler {
     constructor() {
-        this.textCanvas = new ArtObject();
+        this.textCanvas = new TextGrid();
         this.shapeCanvas = new ShapeObject();
-        this.rotArr = ["rotate(-15deg)", "rotate(-30deg)", "rotate(-60deg)"];
+        this.rotArr = ["rotate(-15deg)", "rotate(-30deg)", "rotate(-5deg)"];
     }
 
     listenInput() {
-        this.textCanvas.update();
-        this.shapeCanvas.update();
+        this.updateBackground();
+        this.updateUnits();
+        // this.updateCoords();
+        var titleStr = this.textCanvas.update();
+        
+        this.shapeCanvas.update(titleStr);
         this.skewDocument();
         return false;
     }
@@ -274,394 +478,133 @@ class PageHandler {
         var textGrid = document.getElementById('text-grid');
         var shapeGrid = document.getElementById('dec-grid');
         if (randomNumber(10) >= 7) {
-            var rotInd = randomNumber(this.rotArr.length);
-            textGrid.style.transform = this.rotArr[rotInd];
-            shapeGrid.style.transform = this.rotArr[rotInd];
+            var rotation = this.rotArr[randomNumber(this.rotArr.length)];
+            textGrid.style.transformOrigin = "center center";
+            textGrid.style.transform = rotation;
+            shapeGrid.style.transformOrigin = "center center";
+            shapeGrid.style.transform = rotation;
         } else {
             textGrid.style.transform = "rotate(0deg)";
             shapeGrid.style.transform = "rotate(0deg)";
         }
     }
+
+    updateCoords() {
+        var textGrid = document.getElementById('text-grid');
+        for (var i=0; i<rows; i++) {
+           for (var n=0; n<cols; n++) {
+                var ele = document.createElement('div');
+                ele.classList.add('coord');
+                ele.style.top = (i * yunit).toString() + "px";
+                ele.style.left = (n * xunit).toString() + "px";
+
+                textGrid.appendChild(ele);
+            }
+        }
+    }
+
+    updateUnits() {
+        canvasWidth = document.getElementById('text-grid').offsetWidth;
+        canvasHeight = document.getElementById('text-grid').offsetHeight;
+        xunit = Math.floor(canvasWidth / cols);
+        yunit = Math.floor(canvasHeight / rows);
+    }
+
+    updateBackground() {
+        backgroundColor = colors[randomNumber(colors.length)];
+        document.getElementById('main-content').style.backgroundColor = backgroundColor;
+    }
 }
 //GLOBALS
-// var usrArr = [""];  //special case where user hits enter hits enter. do nothing
-// var zIndex = 0;
-const cols = 9;
-const rows = 16;
-// var rotArr = ["rotate(-15deg)", "rotate(-30deg)", "rotate(-60deg)"];
-// var titleMax = randomNumber(yMax - 10);
-// var subsMin = titleMax + 2;
-// var subsMax = subsMin + randomNumber(yMax - subsMin + 4);
-// var title = new TextObject("titleinput", "title", "title");
-// var subs = [new TextObject("subinput", "subtitle", "subtitle"),
-//             new TextObject("subinput2", "subtitle2", "subtitle"),
-//             new TextObject("subinput3", "subtitle3", "subtitle")];
-// var text = new TextObject("txtinput", "text", "text");
-// var incRed = false;
-// var incBlue = false;
+const cols = 8;
+const rows = 8;
+var backgroundColor;
+var colors = ["var(--white)", "black", "var(--red)", "var(--orange)", "var(--yellow)", "var(--green)", "var(--blue)", "var(--white)"];
 var controller = new PageHandler();
+var xunit;
+var yunit;
+var canvasWidth;
+var canvasHeight;
 
 function onLoad() {
     const form = document.getElementById('form');
     form.addEventListener('submit', preventReload);
+    xunit = Math.floor(document.getElementById('text-grid').offsetWidth / cols);
+    yunit = Math.floor(document.getElementById('text-grid').offsetHeight / rows);
+    controller.listenInput();
+    document.getElementById('html').scrollTop = 0;
+}
+
+function revealMenu() {
+    if (window.pageYOffset > 500) {
+    document.getElementById('menu').style.display = "block";
+    }
 }
 
 function preventReload(event) {
     event.preventDefault();
 }
 
-function listenInput() {
-    title.updateText();
-    title.setPosition()
-    subs.forEach(function(sub) {
-        sub.updateText();
-    })
-    text.updateText();
-
-
-    updateCaps();
-    setColors();
-    skewDocument();
-    return false;
-}
-
-function calculateTextBounds() {
-    this.titleMax = randomNumber(rows - 10);
-
-    //subtitle min/max
-    this.subsMin = this.titleMax + 2;
-    this.subsMax = this.subsMin + randomNumber(rows - this.subsMin + 4);
-    
-    //text min/max
-    this.textMin = this.subsMin + 2;
-    this.textMax = rows - 2;
-
-    //update objects
-
-}
-
-function skewDocument() {
-    var grid1= document.getElementById('text-grid');
-    var grid2 = document.getElementById('dec-grid');
-    if (randomNumber(10) >= 7) {
-        var rotInd = randomNumber(rotArr.length);
-        grid1.style.transform = rotArr[rotInd];
-        grid2.style.transform = rotArr[rotInd];
-    } else {
-        grid1.style.transform = "rotate(0deg)";
-        grid2.style.transform = "rotate(0deg)";
-    }
-}
-
-function updateCaps() {
-    var isUpper = randomNumber(100) >= 50 ? true : false;
-    title.setCase(isUpper);
-    subs.forEach(function(sub) {
-        sub.setCase(isUpper);
-    });
-}
-
-function setColors() {
-    var incRed = document.getElementById("include-red").checked;
-    var incBlue = document.getElementById("include-blue").checked;
-    console.log(incRed, incBlue);
-    if (!incRed && !incBlue) {
-        title.setColor("black");
-        subs.forEach(function(sub) {
-            sub.setColor("black");
-        });
-        text.setColor("black");
-    } else if (incRed && !incBlue) {
-        colorHelper("red");
-    } else if (incBlue && !incRed) {
-        colorHelper("blue");
-    } else if (incRed && incBlue) {
-        var maxRed = 1;
-        var maxBlue = 1;
-        for (var i=0; i<3; i++) {
-            var activeColor = (randomNumber(10) < 6 && maxRed > 0) ? "red" : "blue";
-            if (i==0) {
-                if (randomNumber(10) > 8) {
-                    title.setColor(activeColor);
-                } else {
-                    title.setColor('black');
-                }
-            } else if (i==1) {
-                if (randomNumber(10) > 5) {
-                    subs.forEach(function (sub) {
-                        sub.setColor(activeColor);
-                    }); 
-                } else {
-                    subs.forEach(function (sub) {
-                        sub.setColor('black');
-                    });
-                } 
-            } else if (i==2) {
-                if (randomNumber(10) < 3) {
-                    text.setColor(activeColor);
-                } else {
-                    text.setColor('black');
-                }
-            }
-        }
-    }
-} 
-
-function colorHelper(color) {
-    var max = 2;
-    for (var i=0; i<3; i++) {
-        if (i==0) {
-            if (randomNumber(10) > 8 && max > 0) {
-                title.setColor(color);
-            } else {
-                title.setColor('black');
-            }
-        } else if (i==1) {
-            if (randomNumber(10) > 5 && max > 0) {
-                subs.forEach(function(sub) {
-                    sub.setColor(color);
-                });
-            } else {
-                subs.forEach(function(sub) {
-                    sub.setColor('black');
-                });
-            }
-        } else if (i==0) {
-            if (randomNumber(10) > 3 && max > 0) {
-                text.setColor(color);
-            } else {
-                text.setColor('black');
-            }
-        }
-        max--;
-    }
-}
-
 function randomNumber(max) {
     //return a random number between 0 and max
     var number = Math.floor(Math.random() * Math.floor(max));
-    console.log(number);
     return number;
 }
 
-// function handleInput(frag) {
-//     //check if frag is in usrArr
-//     if (frag == "") {
-//         return;
-//     }
-//     frag = frag.toUpperCase();  // for now, case doesn't matter
-//     var isNew = isNewFrag(frag);
-//     var container = document.getElementById("body-container");
-//     if (isNew === true) {
-//         //calculate location, create html snippet (and orientation) and insert
-//         //track new frag
-//         usrArr.push(frag);
+function randomRange(min, max) {
+    return min + randomNumber(max - min);
+}
 
-//         //create empty div
-//         var ele = document.createElement('div');
-//         //add appropriate class
-//         ele.classList.add("phrase");
+function range(min, max) {
+    var li = [];
+    for (var i=min; i<max; i++) {
+        li.push(i);
+    }
+    return li;
+}
 
-//         //position
-//         calcPosition(frag, ele, "phrase");
-
-//         //weight
-//         calcWeight(frag, ele);
-
-//         calcRotation(frag, ele);
-
-//         drawRule(frag, ele);
-
-//         //add text
-//         ele.innerHTML = frag;
-
-//         //add to DOM
-//         container.appendChild(ele);
-//     } else {
-//         //scale font
-//         var phrase = getDiv(frag);
-//         var style = window.getComputedStyle(phrase, null).getPropertyValue('font-size');
-//         var fontSize = parseFloat(style)/10 + 5; 
-//         phrase.style.fontSize = fontSize.toString() + 'rem';
-//     }
-//     //draw the shape
-//     drawShape(frag);
+function removeArticles(frag) {
+    const regex = '/(?:(the|a|an) +)/g'; 
+    const subst = "";
     
-// }
-
-function drawShape(frag) {
-    var ele = document.createElement('div');
-    if (frag == "CIRCLE") {
-        ele.classList.add('circle');
-        ele.style.width = Math.floor(Math.random() * Math.floor(500) + 50).toString() + "px";
-        ele.style.height = ele.style.width;
-    } else if (frag == "RECTANGLE") {
-        ele.classList.add('rectangle');
-        ele.style.width = Math.floor(Math.random() * Math.floor(500) + 50).toString() + "px";
-        ele.style.height = ele.style.width;
-    } else if (frag == "RULE") {
-        ele.classList.add('line');
-        ele.style.width = Math.floor(Math.random() * Math.floor(80) + 20).toString() + "%";
-        ele.style.height = Math.floor(Math.random() * Math.floor(20) + 2).toString() + "px";
-        ele.style.backgroundColor = (Math.floor(Math.random) * Math.floor(100)) % 2 ? "red" : "black";
-        var rotFactor = Math.floor(Math.random() * Math.floor(rotArr.length));
-        ele.style.transform = rotArr[rotFactor];
-        ele.style.transform = "top left";
-    }
-    calcPosition(frag, ele, "shape");
-
-    var container = document.getElementById("body-container");
-    container.appendChild(ele);
+    // The substituted value will be contained in the result variable
+    return frag.replace(regex, subst);
 }
 
-function calcWeight(frag, ele) {
-    //todo
-}
-
-function calcPosition(frag, ele, objType) {
-    //calculate internal coordinates of x and y
-    if (objType == "phrase") {
-        var hashed = murmur(frag, Math.floor(Math.random() * Math.floor(99)) + 1);
-        var x = hashed % cols;
-        var y = hashed % rows;
-    } else if (objType == "shape") {
-        var hashed = Math.floor(Math.random() * Math.floor(10000) + 1);
-        var x = hashed % cols;
-        var y = hashed % rows;
-    }
-    //correct for offscreen placement
-    var ycoord = y * Math.floor((window.innerHeight - 200) / rows);
-    ycoord =  (ycoord < 200) ? (200) : (ycoord);
-    var xcoord = x * Math.floor((window.innerWidth - 200)/ cols);
-    xcoord =  (xcoord < 200) ? (200) : (xcoord);
-
-    //position new element using absolute px
-    ele.style.top = ycoord.toString() + "px";
-    ele.style.left = xcoord.toString() + "px";
-    ele.style.zIndex = zIndex.toString();
-    zIndex++;
-}
-
-function drawRule(frag, ele) {
-    if (frag[0] == "-" || frag[0] == "_" || frag[0] == "=" || frag[0] == "+" || frag[0] == "|" || frag[0] == "/" || frag[0] ==">" || frag[0] == "<" || frag[0] == "*") {
-        var rotFactor = Math.floor(Math.random() * Math.floor(rotArr.length));
-        ele.style.transform = rotArr[rotFactor];
-        ele.style.transform = "top left";
+function queryMode() {
+    var canvas = document.getElementById('main-content');
+    var dims = canvas.getBoundingClientRect();
+    if (dims.width < dims.height) {
+        return "portrait";
+    } else {
+        return "landscape";
     }
 }
 
-function calcRotation(frag, ele) {
-    //count vowels in word
-    var count = 0;
-    for (var i=0; i<frag.length; i++) {
-        if (frag[i] == "A" || frag[i] == "E" || frag[i] == "I" || frag[i] == "O" || frag[i] == "U") {
-            count++;
-        }
-    }
+function expand(ele) {
+    ele.style.marginLeft = "35rem";
+    ele.style.marginBottom = "0";
+    ele.style.marginTop = "0";
+    ele.style.height = "100vh";
+
+    // var text = document.getElementById('text-grid');
+    // var dec = document.getElementById('dec-grid');
+    // text.style.width = "calc(90vw - 35rem)";
+    // text.style.height = "100vh";
+    // dec.style.width = "calc(90vw - 35rem)";
+    // dec.style.height = "100vh";
+}
+
+function fullscreen(ele) {
+    ele.style.marginLeft = "3vw";
+    ele.style.marginBottom = "3vh";
+    ele.style.marginTop = "3vh";
+    ele.style.height = "94vh";  
     
-    var rotFactor = count % rotArr.length;
-    ele.style.transform = rotArr[rotFactor];
-    ele.style.transform = "top left";
-}
-
-// function parseFontSize(sizeStr) {
-//     var nums = "";
-//     console.log(sizeStr);
-//     for (var i=0; i<sizeStr.length; i++) {
-//         if (typeof(parseInt(sizeStr[i], 10))) {
-//             nums = nums + sizeStr[i];
-//         }
-//     }
-//     return parseInt(nums, 10);
-// }
-
-// function getDiv(frag) {
-//     var found;
-//     phraseDivs = document.getElementsByClassName("phrase");
-//     console.log(phraseDivs);
-//     for (var i = 0; i < phraseDivs.length; i++) {
-//         if (phraseDivs[i].textContent == frag) {
-//           found = phraseDivs[i];
-//           break;
-//         }
-//     }
-//     return found;
-// }
-
-// function isNewFrag(frag) {
-//     var isNew = true;
-//     console.log(frag);
-//     for (var i=0; i<usrArr.length; i++) {
-//         if (usrArr[i] === frag) {
-//             isNew = false;
-//             break;
-//         }
-//     }
-//     return isNew;
-// }
-
-//THIS FUNCTION IS USED TO GENERATE A HASH CODE FOR A STRING WITH MINIMAL COLLISIONS.
-// I found this function online, the link to the author's github is provided in the following comment:
-/**
- * JS Implementation of MurmurHash3 (r136) (as of May 20, 2011)
- * 
- * @author <a href="mailto:gary.court@gmail.com">Gary Court</a>
- * @see http://github.com/garycourt/murmurhash-js
- * @author <a href="mailto:aappleby@gmail.com">Austin Appleby</a>
- * @see http://sites.google.com/site/murmurhash/
- * 
- * @param {string} key ASCII only
- * @param {number} seed Positive integer only
- * @return {number} 32-bit positive integer hash 
- */
-function murmur(key, seed) {
-	var remainder, bytes, h1, h1b, c1, c1b, c2, c2b, k1, i;
-	
-	remainder = key.length & 3; // key.length % 4
-	bytes = key.length - remainder;
-	h1 = seed;
-	c1 = 0xcc9e2d51;
-	c2 = 0x1b873593;
-	i = 0;
-	
-	while (i < bytes) {
-	  	k1 = 
-	  	  ((key.charCodeAt(i) & 0xff)) |
-	  	  ((key.charCodeAt(++i) & 0xff) << 8) |
-	  	  ((key.charCodeAt(++i) & 0xff) << 16) |
-	  	  ((key.charCodeAt(++i) & 0xff) << 24);
-		++i;
-		
-		k1 = ((((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16))) & 0xffffffff;
-		k1 = (k1 << 15) | (k1 >>> 17);
-		k1 = ((((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16))) & 0xffffffff;
-
-		h1 ^= k1;
-        h1 = (h1 << 13) | (h1 >>> 19);
-		h1b = ((((h1 & 0xffff) * 5) + ((((h1 >>> 16) * 5) & 0xffff) << 16))) & 0xffffffff;
-		h1 = (((h1b & 0xffff) + 0x6b64) + ((((h1b >>> 16) + 0xe654) & 0xffff) << 16));
-	}
-	
-	k1 = 0;
-	
-	switch (remainder) {
-		case 3: k1 ^= (key.charCodeAt(i + 2) & 0xff) << 16;
-		case 2: k1 ^= (key.charCodeAt(i + 1) & 0xff) << 8;
-		case 1: k1 ^= (key.charCodeAt(i) & 0xff);
-		
-		k1 = (((k1 & 0xffff) * c1) + ((((k1 >>> 16) * c1) & 0xffff) << 16)) & 0xffffffff;
-		k1 = (k1 << 15) | (k1 >>> 17);
-		k1 = (((k1 & 0xffff) * c2) + ((((k1 >>> 16) * c2) & 0xffff) << 16)) & 0xffffffff;
-		h1 ^= k1;
-	}
-	
-	h1 ^= key.length;
-
-	h1 ^= h1 >>> 16;
-	h1 = (((h1 & 0xffff) * 0x85ebca6b) + ((((h1 >>> 16) * 0x85ebca6b) & 0xffff) << 16)) & 0xffffffff;
-	h1 ^= h1 >>> 13;
-	h1 = ((((h1 & 0xffff) * 0xc2b2ae35) + ((((h1 >>> 16) * 0xc2b2ae35) & 0xffff) << 16))) & 0xffffffff;
-	h1 ^= h1 >>> 16;
-
-	return h1 >>> 0;
+    // var text = document.getElementById('text-grid');
+    // var dec = document.getElementById('dec-grid');
+    // text.style.width = "90vw";
+    // text.style.height = "88vh";
+    // dec.style.width = "90vw";
+    // dec.style.height = "88vh";
 }

@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Akzidenz Light';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Akzidenz Grotesk Light'), url('akzidenz/Akzidenz-grotesk-light.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Akzidenz Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Akzidenz Grotesk bold'), url('akzidenz/Akzidenz-grotesk-bold.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Akzidenz Black';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Akzidenz Grotesk black'), url('akzidenz/Akzidenz-grotesk-black.ttf') format('ttf');
+}
+
+@font-face {
+    font-family: 'Akzidenz Condensed Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Akzidenz Grotesk be bold condensed'), url('akzidenz/Akzidenz-grotesk-be-bold-condensed.ttf') format('ttf');
+}
