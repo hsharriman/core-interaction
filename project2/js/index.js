@@ -165,10 +165,13 @@ class TextObject {
         if (this.ele.id == "title") {
             if (frag.length > 7) {
                 this.ele.style.fontSize = "20rem";
+                this.ele.style.lineHeight = "20rem";
             } else if (frag.length <=7 && frag.length > 3){
                 this.ele.style.fontSize = "30rem";
+                this.ele.style.lineHeight = "31rem";
             } else {
                 this.ele.style.fontSize = "55rem";
+                this.ele.style.lineHeight = "56rem";
             }
         }
         if (queryMode() == "portrait") {
