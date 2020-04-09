@@ -49,8 +49,13 @@ html {
     overflow: auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 html::-webkit-scrollbar { 
     width: 0 !important; 
+}
+
+body {
+    scrollbar-width: none;
 }
