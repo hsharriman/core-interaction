@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/about.css">
+    <script src="js/scroll.js"></script>
+    <title>About the Project</title>
+</head>
+<body onload="onLoad()">
+    <div id="scrollbar" style="right: 0;"></div>
+    <div class="upper-right-nav back-btn" onclick="window.location.href = 'gallery.html';"><span>&#129135;</span> back</div>
+    <div id="doc">
+        <h1 id="h1">about the project</h1>
+        <p class="para">
+            This project is meant to be a celebration and exploration of the International Typographic Style, a highly influential typographic movement which first appeared in the early-to-mid 20th century. There are two parts to the website: the generator, and the gallery. The generator is a tool for creation, where users can see their own text instantly rendered on millions of permutations of posters created in the Swiss Style. The gallery, in turn, compares posters created by the generator to historic posters made by masters of the International Typographic Style to one another.
+        </p>
+        
+        <h2 id="gen-h2">the generator</h2>
+        <p class="para">
+            Using pure Javascript, the generator pseudo-randomly combines attributes that are commonly found in posters made in the Swiss International Style to create infinite variations of any given poster, all with the press of a button. The text that fills the poster can be filled in by visitors to the site. 
+        </p>
+
+        <p class="para">
+            As with all work in the Swiss Style, the posters are created on a strict grid, which sometimes appears rotated with respect to the canvas. Sometimes, graphic elements are present, which can take on a number of different shapes and colors. Text is always sans-serif and usually black for readability. The Swiss Style emphasizes cleanliness and objectivity, so the titles, subtitles, and body text are clearly distinguished by size. All of these attributes have been coded into the generator, abstracted so that visitors to the site need not get overwhelmed with the details.
+        </p>
+
+        <h2 id="gallery-h2">the gallery</h2>
+        <p class="para">
+            The duality of generated posters alongside some historic examples encourages the visitor to consider how the role of the graphic designer will evolve in a future that is becoming more and more reliant on automation. 
+            The generated posters could not exist or mimic the Swiss Style without human logic and intuition guiding the computer in its process. Referencing historic posters, extracting common, defining traits, selecting results that bear a resemblance to the originals&mdash;these are all things that humans can do naturally. Though the visual appearance of the generated posters give the illusion of nuance and higher thinking, the lists of attributes that accompany both the historic and generated posters are reminders that the computer’s “understanding” is far simpler than that of the human designer.
+        </p>
+
+        <p class="para" style="font-style: italic;">
+            This project was created for the Spring 2020 offering of Core Studio Interaction at Parsons School of Design.
+        </p>
+
+    </div>
+</body>
+<script>
+    window.addEventListener('scroll', updateScrollBar);
+
+    function onLoad() {
+        var title = document.getElementById('h1');
+        var gallery = document.getElementById('gallery-h2');
+        var gen = document.getElementById('gen-h2');
+        var bodyp = document.getElementsByClassName('para');
+        title.style.opacity = "100%";
+        gen.style.opacity = "1";
+        gallery.style.opacity = "1";
+        for (var i=0; i<bodyp.length; i++) {
+            bodyp[i].style.transitionDelay = (i * .25).toString() + "s";
+            bodyp[i].style.opacity = "100%";
+        }
+    }
+</script>
+</html>

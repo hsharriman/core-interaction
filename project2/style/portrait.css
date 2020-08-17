@@ -1,10 +1,17 @@
 @import url('index.css');
 
+:root {
+    --port-height: calc(100vh - 6rem);
+    --port-width: calc((var(--port-height) / 3) * 2);
+    --port-grid-h: calc(var(--port-height) - 5rem);
+    --port-grid-w: calc(var(--port-width) - 7rem);
+}
+
 #main-content {
-    width: calc(100% - 9rem);
-    height: 94vh;
+    height: var(--port-height);
+    width:  var(--port-width);
     position: fixed;
-    margin: 2rem;
+    margin: 2vh 3vh 2vw 2vw;
     top: 0;
     left: 0;
     -webkit-box-shadow: 0px 9px 12px 8px rgba(0,0,0,0.37);
@@ -20,10 +27,10 @@
     justify-content: left;
     position: absolute;
     z-index: -1;
-    width: 90vw;
+    width: var(--port-grid-w);
     top: 0;
     left: 0;
-    height: 88vh;
+    height: var(--port-grid-h);
     overflow: visible;
     margin: 2rem;
     transition: all .75s ease-in 0s;
@@ -33,10 +40,10 @@
     justify-content: left;
     position: absolute;
     z-index: -2;
-    width: 90vw;
+    width: var(--port-grid-w);
     top: 0;
     left: 0;
-    height: 88vh;
+    height: var(--port-grid-h);
     overflow: visible;
     margin: 2rem;
     opacity: 80%;
@@ -47,8 +54,8 @@
     font-family: var(--font1), sans-serif;
     font-weight: 900;
     font-style: normal;
-    line-height: 23rem;
-    font-size: 20rem;
+    line-height: 10rem;
+    font-size: 10rem;
     background-color: transparent;
     justify-content: left;
     color: black;
@@ -66,8 +73,8 @@
     font-family: var(--font1), sans-serif;
     font-weight: 700;
     font-style: normal;
-    line-height: 5rem;
-    font-size: 5rem;
+    line-height: 3rem;
+    font-size: 3rem;
     background-color: transparent;
     justify-content: left;
     color: black;
@@ -103,8 +110,8 @@
 }
 
 .square {
-    width: 30rem;
-    height: 30rem; 
+    width: 20rem;
+    height: 20rem; 
     position: absolute;
     background-color: black;
     justify-content: left;
@@ -112,8 +119,8 @@
 }
 
 .circle {
-    width: 40rem;
-    height: 40rem;
+    width: 30rem;
+    height: 30rem;
     position: absolute;
     background-color: black;
     border-radius: 50%;
@@ -122,7 +129,7 @@
 }
 
 .letter {
-    font-size: 30rem;
+    font-size: 20rem;
     justify-content: left;
     height: auto;
     opacity: inherit;
@@ -163,18 +170,6 @@
     #dec-grid {
         width: 90vw;
         height: 88vh;
-    }
-}
-
-@media (max-width: 1100px) {
-    html {
-        font-size: 62.5%;
-    }
-}
-
-@media (max-width: 800px) {
-    #main-content {
-        width: calc(100% - 4rem);
     }
 }
 

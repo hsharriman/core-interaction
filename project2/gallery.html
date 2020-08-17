@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/img-info.js"></script>
+    <script src="js/appear.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/scroll.js"></script>
+    <title>Gallery</title>
+    <link rel="stylesheet" href="style/gallery.css">
+</head>
+<body onload="onLoad()" id="body">
+    <div id="scrollbar"></div>
+    <div id="metatxt">
+        <h2>Gallery of Posters</h2>
+        <div id="src-text">
+            <h4 style="color:gray;">Historic Poster</h4>
+            <h3 class="title" id="src-title"></h3>
+            <h3 class="author" id="src-author"></h3>
+            <h4>Attributes</h4>
+            <ul id="src-attrib">
+            </ul>
+        </div>
+
+        <div id="gen-text">
+            <h4 style="color:gray;">Generated Poster</h4>
+            <h3 class="title" id="gen-title">Star Wars, <span class="year" id="gen-year">2020.</span></h3>
+            <h3 class="author">Generated.</h3>
+            <h4>Attributes</h4>
+            <ul id="gen-attrib">
+                <li>rotated grid</li>
+                <li>2 additional colors</li>
+                <li>3 font sizes</li>
+            </ul>
+        </div>
+        <div class="upper-right-nav read-more" onclick="window.location.href='about.html';">read more <span>&#129122;</span></div>
+    </div>
+    <div class="upper-right-nav" onclick="window.location.href='index.html';"><span>&#129124;</span> generator</div>
+    <div class="img-left" id="big-img-container"><img id="big-img" class="appear" data-src="img/og/0.jpg" alt=""></div>
+
+    <div id="full-screen" onclick="this.style.display = 'none';">
+        <img id="full-img" src="img/og/0.jpg" alt="">
+        <div class="close-btn"><img src="img/compress.png"></div>
+    </div>
+
+
+    <div class="grid-right" id="0">
+        <div class="thumbnail" id="01" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/01.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb01" class="thumb-img appear" data-src="img/generated/01.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="02" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/02.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb02" class="thumb-img appear" data-src="img/generated/02.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="03" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/03.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb03" class="thumb-img appear" data-src="img/generated/03.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="04" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/04.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb04" class="thumb-img appear" data-src="img/generated/04.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="05" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/05.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb05" class="thumb-img appear" data-src="img/generated/05.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="06" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/06.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb06" class="thumb-img appear" data-src="img/generated/06.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="07" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/07.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb07" class="thumb-img appear" data-src="img/generated/07.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="08" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/08.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb08" class="thumb-img appear" data-src="img/generated/08.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="09" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/09.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb09" class="thumb-img appear" data-src="img/generated/09.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="010" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/010.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb010" class="thumb-img appear" data-src="img/generated/010.png" data-delay="250" alt=""></div>
+        </div>
+    </div>
+    <!-- <div class="img-left" id="1img"><img class="appear" data-src="img/og/1.jpg" alt=""></div> -->
+    <div class="grid-right" id="1">
+        <div class="thumbnail" id="11" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/11.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb11" class="thumb-img appear" data-src="img/generated/11.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="12" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/12.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb12" class="thumb-img appear" data-src="img/generated/12.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="13" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/13.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb13" class="thumb-img appear" data-src="img/generated/13.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="14" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/14.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb14" class="thumb-img appear" data-src="img/generated/14.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="15" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/15.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb15" class="thumb-img appear" data-src="img/generated/15.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="16" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/16.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb16" class="thumb-img appear" data-src="img/generated/16.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="17" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/17.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb17" class="thumb-img appear" data-src="img/generated/17.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="18" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/18.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb18" class="thumb-img appear" data-src="img/generated/18.png" data-delay="250" alt=""></div>
+        </div>
+        <div class="thumbnail" id="19" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+            <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/19.png" data-delay="500" alt=""></div>
+            <div class="thumb-img"><img id="thumb19" class="thumb-img appear" data-src="img/generated/19.png" data-delay="250" alt=""></div>
+        </div>
+    </div>
+
+        <!-- <div class="img-left" id="2img"><img class="appear" data-src="img/og/2.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="2">
+            <div class="thumbnail" id="21" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/21.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb21" class="thumb-img appear" data-src="img/generated/21.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="22" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/22.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb22" class="thumb-img appear" data-src="img/generated/22.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="23" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/23.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb23" class="thumb-img appear" data-src="img/generated/23.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="24" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/24.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb24" class="thumb-img appear" data-src="img/generated/24.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="25" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/25.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb25" class="thumb-img appear" data-src="img/generated/25.png" data-delay="250" alt=""></div>
+            </div>
+
+        </div>
+
+        <!-- <div class="img-left" id="3img"><img class="appear" data-src="img/og/3.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="3">
+            <div class="thumbnail">
+                <div id="01" class="thumb-img"><img id="thumb01" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="02" class="thumbnail">
+                <div class="thumb-img"><img id="thumb02" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="03" class="thumbnail">
+                <div class="thumb-img"><img id="thumb03" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="04" class="thumbnail">
+                <div class="thumb-img"><img id="thumb04" class="thumb-img appear" data-src="img/generated/gen1/4.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="05" class="thumbnail">
+                <div class="thumb-img"><img id="thumb05" class="thumb-img appear" data-src="img/generated/gen1/5.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="06" class="thumbnail">
+                <div class="thumb-img"><img id="thumb06" class="thumb-img appear" data-src="img/generated/gen1/6.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="07" class="thumbnail">
+                <div class="thumb-img"><img id="thumb07" class="thumb-img appear" data-src="img/generated/gen1/7.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="08" class="thumbnail">
+                <div class="thumb-img"><img id="thumb08" class="thumb-img appear" data-src="img/generated/gen1/8.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="09" class="thumbnail">
+                <div class="thumb-img"><img id="thumb09" class="thumb-img appear" data-src="img/generated/gen1/9.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="010" class="thumbnail">
+                <div class="thumb-img"><img id="thumb010" class="thumb-img appear" data-src="img/generated/gen1/10.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="011" class="thumbnail">
+                <div class="thumb-img"><img id="thumb011" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="012" class="thumbnail">
+                <div class="thumb-img"><img id="thumb012" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+        </div>
+
+        <!-- <div class="img-left" id="4img"><img class="appear" data-src="img/og/4.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="4">
+            <div class="thumbnail">
+                <div id="01" class="thumb-img"><img id="thumb01" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="02" class="thumbnail">
+                <div class="thumb-img"><img id="thumb02" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="03" class="thumbnail">
+                <div class="thumb-img"><img id="thumb03" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="04" class="thumbnail">
+                <div class="thumb-img"><img id="thumb04" class="thumb-img appear" data-src="img/generated/gen1/4.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="05" class="thumbnail">
+                <div class="thumb-img"><img id="thumb05" class="thumb-img appear" data-src="img/generated/gen1/5.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="06" class="thumbnail">
+                <div class="thumb-img"><img id="thumb06" class="thumb-img appear" data-src="img/generated/gen1/6.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="07" class="thumbnail">
+                <div class="thumb-img"><img id="thumb07" class="thumb-img appear" data-src="img/generated/gen1/7.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="08" class="thumbnail">
+                <div class="thumb-img"><img id="thumb08" class="thumb-img appear" data-src="img/generated/gen1/8.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="09" class="thumbnail">
+                <div class="thumb-img"><img id="thumb09" class="thumb-img appear" data-src="img/generated/gen1/9.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="010" class="thumbnail">
+                <div class="thumb-img"><img id="thumb010" class="thumb-img appear" data-src="img/generated/gen1/10.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="011" class="thumbnail">
+                <div class="thumb-img"><img id="thumb011" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="012" class="thumbnail">
+                <div class="thumb-img"><img id="thumb012" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+        </div>
+
+        <!-- <div class="img-left" id="5img"><img class="appear" data-src="img/og/5.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="5">
+            <div class="thumbnail" id="51" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/51.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb51" class="thumb-img appear" data-src="img/generated/51.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="52" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/52.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb52" class="thumb-img appear" data-src="img/generated/52.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="53" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/53.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb53" class="thumb-img appear" data-src="img/generated/53.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="54" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/54.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb54" class="thumb-img appear" data-src="img/generated/54.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="55" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/55.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb55" class="thumb-img appear" data-src="img/generated/55.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="56" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/56.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb56" class="thumb-img appear" data-src="img/generated/56.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="57" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/57.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb57" class="thumb-img appear" data-src="img/generated/57.png" data-delay="250" alt=""></div>
+            </div>
+        </div>
+
+        <!-- <div class="img-left" id="6img"><img class="appear" data-src="img/og/6.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="6">
+            <div class="thumbnail">
+                <div id="01" class="thumb-img"><img id="thumb01" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="02" class="thumbnail">
+                <div class="thumb-img"><img id="thumb02" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="03" class="thumbnail">
+                <div class="thumb-img"><img id="thumb03" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="04" class="thumbnail">
+                <div class="thumb-img"><img id="thumb04" class="thumb-img appear" data-src="img/generated/gen1/4.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="05" class="thumbnail">
+                <div class="thumb-img"><img id="thumb05" class="thumb-img appear" data-src="img/generated/gen1/5.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="06" class="thumbnail">
+                <div class="thumb-img"><img id="thumb06" class="thumb-img appear" data-src="img/generated/gen1/6.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="07" class="thumbnail">
+                <div class="thumb-img"><img id="thumb07" class="thumb-img appear" data-src="img/generated/gen1/7.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="08" class="thumbnail">
+                <div class="thumb-img"><img id="thumb08" class="thumb-img appear" data-src="img/generated/gen1/8.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="09" class="thumbnail">
+                <div class="thumb-img"><img id="thumb09" class="thumb-img appear" data-src="img/generated/gen1/9.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="010" class="thumbnail">
+                <div class="thumb-img"><img id="thumb010" class="thumb-img appear" data-src="img/generated/gen1/10.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="011" class="thumbnail">
+                <div class="thumb-img"><img id="thumb011" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="012" class="thumbnail">
+                <div class="thumb-img"><img id="thumb012" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+        </div>
+
+        <!-- <div class="img-left" id="7img"><img class="appear" data-src="img/og/7.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="7">
+            <div class="thumbnail">
+                <div id="01" class="thumb-img"><img id="thumb01" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="02" class="thumbnail">
+                <div class="thumb-img"><img id="thumb02" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="03" class="thumbnail">
+                <div class="thumb-img"><img id="thumb03" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="04" class="thumbnail">
+                <div class="thumb-img"><img id="thumb04" class="thumb-img appear" data-src="img/generated/gen1/4.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="05" class="thumbnail">
+                <div class="thumb-img"><img id="thumb05" class="thumb-img appear" data-src="img/generated/gen1/5.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="06" class="thumbnail">
+                <div class="thumb-img"><img id="thumb06" class="thumb-img appear" data-src="img/generated/gen1/6.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="07" class="thumbnail">
+                <div class="thumb-img"><img id="thumb07" class="thumb-img appear" data-src="img/generated/gen1/7.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="08" class="thumbnail">
+                <div class="thumb-img"><img id="thumb08" class="thumb-img appear" data-src="img/generated/gen1/8.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="09" class="thumbnail">
+                <div class="thumb-img"><img id="thumb09" class="thumb-img appear" data-src="img/generated/gen1/9.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="010" class="thumbnail">
+                <div class="thumb-img"><img id="thumb010" class="thumb-img appear" data-src="img/generated/gen1/10.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="011" class="thumbnail">
+                <div class="thumb-img"><img id="thumb011" class="thumb-img appear" data-src="img/generated/gen1/1.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="012" class="thumbnail">
+                <div class="thumb-img"><img id="thumb012" class="thumb-img appear" data-src="img/generated/gen1/2.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+        </div>
+
+        <!-- <div class="img-left" id="9img"><img class="appear" data-src="img/og/9.jpg" data-delay="500" alt=""></div> -->
+        <div class="grid-right" id="8">
+            <div class="thumbnail" id="81" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/91.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb81" class="thumb-img appear" data-src="img/generated/91.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="82" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/92.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb82" class="thumb-img appear" data-src="img/generated/92.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="83" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/93.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb83" class="thumb-img appear" data-src="img/generated/93.png" data-delay="250" alt=""></div>
+            </div>
+            <div class="thumbnail" id="84" onclick="fullscreen(this)" onmouseover="updateInfo(this)">
+                <div class="thumb-img-bw"><img class="thumb-img-bw appear" data-src="img/generated/94.png" data-delay="500" alt=""></div>
+                <div class="thumb-img"><img id="thumb84" class="thumb-img appear" data-src="img/generated/94.png" data-delay="250" alt=""></div>
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+            <div id="013" class="thumbnail">
+                <div class="thumb-img"><img id="thumb013" class="thumb-img appear" data-src="img/generated/gen1/3.png" data-delay="750" alt=""></div>
+    
+            </div>
+        </div>
+
+        <footer><a target="_blank" href="https://icons8.com/icons/set/compress">Icons</a> by <a target="_blank" href="https://icons8.com">Icons8</a></footer>
+</body>
+<script>
+   handleResize();
+
+    // function onVisibilityChange(el, callback) {
+    // var old_visible;
+    // return function () {
+    //     var visible = isElementInViewport(el);
+    //     if (visible != old_visible) {
+    //         old_visible = visible;
+    //         if (typeof callback == 'function') {
+    //             callback();
+    //         }
+    //     }
+    // }
+    // }
+
+    // var handler = onVisibilityChange(el, function() {
+    //     /* Your code go here */
+    // });
+
+
+    // if (window.addEventListener) {
+    //     addEventListener('DOMContentLoaded', handler, false);
+    //     addEventListener('load', handler, false);
+    //     addEventListener('scroll', handler, false);
+    //     addEventListener('resize', handler, false);
+    // } else if (window.attachEvent)  {
+    //     attachEvent('onDOMContentLoaded', handler); // Internet Explorer 9+ :(
+    //     attachEvent('onload', handler);
+    //     attachEvent('onscroll', handler);
+    //     attachEvent('onresize', handler);
+    // }
+
+</script>
+</html>

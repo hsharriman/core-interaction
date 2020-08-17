@@ -1,5 +1,6 @@
 @import url('index.css');
 
+
 body, h1, h2, h3, h4, h5, p, span {
     font-family: 'Helvetica Bold', sans-serif;
     font-style: normal;
@@ -8,18 +9,17 @@ body, h1, h2, h3, h4, h5, p, span {
 
 #arrow {
     position: absolute;
-    top: -5.25rem;
-    left: 50%;
-    font-size: 7rem;
-    color: white;
+    top: 0rem;
+    left: 48%;
+    font-size: 4rem;
+    color: var(--top-white);
     width: 2rem;
-    height: 7rem;
-    transform: rotate(90deg);
+    height: 5rem;
     border-radius: 40%;
     padding: 1rem;
     transition: transform ease .5s;
-    animation: move .75s ease 1.5s;
-    animation-iteration-count: 4;
+    animation: move 1s ease 1.5s;
+    animation-iteration-count: 5;
 }
 
 form {
@@ -32,7 +32,7 @@ form {
 
 #controls {
     width: 100vw;
-    height: 36vh;
+    height: auto;
     position: absolute;
     top: 98vh;
     left: 0;
@@ -46,17 +46,14 @@ form {
     box-shadow: 3px -3px 12px 0px rgba(0,0,0,0.62);
 }
 
+
 #generate {
     color: white;
     background-color: black;
     border-bottom: none;
-    transition: all .5s ease 0s;
+    padding: 2rem;
+    font-size: 5rem !important;
     border: none;
-}
-
-#generate:hover {
-    background-color: var(--red);
-    transform: scale(1.1, 1.1);
 }
 
 textarea::-webkit-scrollbar { 
@@ -68,7 +65,6 @@ form input {
     font-family: 'Helvetica Bold', sans-serif;
     z-index: 1;
     background-color: transparent;
-    /* border-radius: 3px; */
     padding: .5rem;
     margin: 1vw;
     margin-bottom: 0rem;
@@ -86,12 +82,12 @@ form input:focus {
 
 .btn {
     font-family: 'Helvetica Bold', sans-serif;
-    padding: 2rem;
-    font-size: 5rem;
-    /* margin-left: 2vw !important; */
+    padding: 1rem;
+    padding-left: 2rem;
+    font-size: 3rem;
     width: 100%;
     height: auto;
-    background-color: transparent;
+    background-color: var(--top-white);
     border: 2px solid black;
     color: black;
     display: flex;
@@ -110,7 +106,7 @@ form input:focus {
 
 .btn:hover {
     transform: scale(1.05, 1.05);
-    background-color: var(--red);
+    color: black;
     transition: all ease-in-out .25s;
     -webkit-box-shadow: var(--drop-shadow);
     -moz-box-shadow: var(--drop-shadow);
@@ -188,7 +184,7 @@ textarea:focus {
     margin-right: 0;
     width: 20vw;
     height: 6.4rem;
-    margin-bottom: 0;
+    margin-bottom: 3rem;
 }
 
 #txtinput {
@@ -214,19 +210,35 @@ textarea:focus {
 }
 
 @keyframes move {
-    0% { top: -5.25rem;}
-    50% { top: -7rem;}
-    100% {top: -5.25rem;}
+    0% { top: 0; transform: scale(1.0, 1.0);}
+    50% { top: -7rem; transform: scale(1.2, 1.2);}
+    100% {top: 0; transform: scale(1, 1);}
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     html {
         font-size: 62.5%;
     }
     
     .btn {
-        padding-left: 1rem;
-        font-size: 3.5rem;
+        padding-left: 1rem !important;
+        font-size: 3rem;
+    }
+
+    #generate {
+        font-size: 3rem !important;
+    }
+
+    .titlein {
+        font-size: 9rem;
+    }
+
+    .subin {
+        font-size: 2.5rem;
+    }
+
+    .textin {
+        font-size: 1.4rem;
     }
 }
 
@@ -261,6 +273,32 @@ textarea:focus {
         margin-top: 3rem;
         width: 84%;
         margin-left: 7%;
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width:400px) {
+    html {
+        font-size: 62.5%;
+    }
+    #form-container {
+        margin-top: 2rem;
+    }
+    .titlein {
+        font-size: 3rem;
+        width: 90vw;
+    }
+    .subin {
+        width: 28vw;
+        font-size: 1.4rem;
+    }
+    .textin {
+        width: 28vw;
+        font-size: 1.1rem;
+    }
+
+    #refresh {
+        width: 94vw;
     }
 }
 
@@ -269,3 +307,4 @@ textarea:focus {
         display: none;
     }
 }
+

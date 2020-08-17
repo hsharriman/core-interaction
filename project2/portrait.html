@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <link rel="stylesheet" type="text/css" href="style/controls.css">
-    <link rel="stylesheet" type="text/css" href="style/generate.css">
+    <link rel="stylesheet" type="text/css" href="style/portrait.css">
     <script src=""></script>
     <script src="js/index.js"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,7 +13,6 @@
 </head>
 <body onload="onLoad()">
     <div class="upper-right-nav" onclick="window.location.href='gallery.html';"><span>&#129124;</span> gallery</div>
-    <div class="small" onclick="window.location.href='gallery.html';">&#129125;</div>
     <div id="controls">
         <div id="arrow">&utrif;</div>
         <div id="form-container">
@@ -28,17 +27,18 @@
                         <textarea name="subinput3" id="subinput3" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin"></textarea><br>
                         <!-- <label for="txtinput" class="lbl">Text</label> -->
                         <textarea name="txtinput" id="txtinput" placeholder="(max 140 characters)"  rows="4" maxlength="140" class="textin">An homage to the Swiss International Style, a graphic design style developed in the early to mid-20th century.</textarea>
-                        <textarea name="txtinput2" id="txtinput2" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin">The Swiss International Style emphasizes cleanliness, readability, and objectivity. </textarea>
-                        <textarea name="txtinput3" id="txtinput3" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin">"Hallmarks of the Swiss International style are asymmetric layouts, use of a grid, sans-serif typefaces, and flush left, ragged right"</textarea>
+                        <textarea name="txtinput2" id="txtinput2" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin">"Hallmarks of the Swiss International style are asymmetric layouts, use of a grid, sans-serif typefaces, and flush left, ragged right" </textarea>
+                        <!-- <textarea name="txtinput3" id="txtinput3" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin"></textarea> -->
                 </form>
                 <div class="btn-container">
                         <input type="submit" class="btn"value="Generate" form="form" id="generate">
                         <input type="submit" class="btn" id="download" value="Print" onclick="download()">
-                        <!-- <input type="submit" class="btn" id="orientation" onclick="window.location.href='portrait.html';" value="Portrait Mode"> -->
+                        <input type="submit" class="btn" id="orientation" onclick="window.location.href='index.html';" value="Landscape Mode">
+                        <input type="submit" class="btn" id="examples" value="Examples" onclick="window.location.href =  'gallery.html';">
                 </div>
         </div>
     </div>
-    <div id="main-content">
+    <div id="main-content" class="portrait-canvas">
         <div id="text-grid"></div>
         <div id="dec-grid"></div>
     </div>

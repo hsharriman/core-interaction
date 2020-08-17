@@ -1,0 +1,10 @@
+* portrait mode vs landscape
+* when rotating, shrink the text-grid/dec-grid and reposition to be centered
+* make an examples section
+* figure out how to actually save the image
+* clean up/refacor a bit
+* random selection between akzidenz and helvetica
+* mobile version
+*portrait/landscape buttons
+* locking an aspect ratio?
+font size when on mobile screen (esp of small text...its too big)

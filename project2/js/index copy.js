@@ -163,29 +163,17 @@ class TextObject {
     setSize(frag) {
         if (this.ele.id == "title") {
             if (frag.length > 7) {
-                this.ele.style.fontSize = "20rem";
-                this.ele.style.lineHeight = "20rem";
+                this.ele.style.fontSize = "10rem";
+                this.ele.style.lineHeight = "10rem";
             } else if (frag.length <=7 && frag.length > 3){
-                this.ele.style.fontSize = "30rem";
-                this.ele.style.lineHeight = "31rem";
+                this.ele.style.fontSize = "15rem";
+                this.ele.style.lineHeight = "16rem";
             } else {
-                this.ele.style.fontSize = "55rem";
-                this.ele.style.lineHeight = "56rem";
+                this.ele.style.fontSize = "25rem";
+                this.ele.style.lineHeight = "25rem";
             }
         }
         if (queryMode() == "portrait") {
-            if (this.ele.id == "title") {
-                if (frag.length > 7) {
-                    this.ele.style.fontSize = "10rem";
-                    this.ele.style.lineHeight = "10rem";
-                } else if (frag.length <=7 && frag.length > 3){
-                    this.ele.style.fontSize = "15rem";
-                    this.ele.style.lineHeight = "16rem";
-                } else {
-                    this.ele.style.fontSize = "25rem";
-                    this.ele.style.lineHeight = "25rem";
-            }
-        }
             if (this.classType == "subtitle") {
                 this.ele.style.fontSize = "2rem";
                 this.ele.style.lineHeight = "2rem";
@@ -314,13 +302,11 @@ class ShapeObject {
         node.style.opacity = (randomRange(70, 100)).toString() + "%";
     
         node.querySelectorAll('*').forEach(n => n.remove());
-        var numObjs = randomNumber(12) + 1;
-        //TEMP: CHANGE BACK
-        // var numObjs = 1;
+        var numObjs = randomNumber(5);
         this.lettersAllowed();
         for (var i=0; i<numObjs; i++) {
-            // var ele = this.makeRandomObject(titleStr);
-            var ele = this.makeCircle();
+            var ele = this.makeRandomObject(titleStr);
+            // this.setScale(ele, classType);
             this.setOrientation(ele);
             this.setPosition(ele);
             node.appendChild(ele);
@@ -352,12 +338,8 @@ class ShapeObject {
     }
 
     setPosition(ele) {
-        // var x = randomNumber(cols - 4) * xunit;
-        // var y = randomNumber(rows - 4) * yunit;
-
-        //UNCOMMENT LATER
-        var x = randomNumber(cols / 2) * 2 * xunit;
-        var y = randomNumber(rows / 2) * 2 * yunit;
+        var x = randomNumber(cols - 4) * xunit;
+        var y = randomNumber(rows - 4) * yunit;
         ele.style.top = y.toString() + "px";
         ele.style.left = x.toString() + "px";
     }
@@ -373,7 +355,7 @@ class ShapeObject {
     setColor(ele) {
         var color = colors[randomNumber(colors.length)];
         ele.style.backgroundColor = color;
-        if (color == backgroundColor) {
+        if (color == backgroundColor || color == "black") {
             return this.setColor(ele);
         }
         if (backgroundColor == "black" && color == "var(--white)") {
@@ -402,9 +384,6 @@ class ShapeObject {
         var ele = document.createElement('div');
         ele.classList.add('circle');
 
-        //DELETE LATER
-        ele.style.width = "20rem";
-        ele.style.height = "20rem";
         this.setColor(ele);
         return ele;
     }

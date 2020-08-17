@@ -41,11 +41,12 @@
     --font3: 'Helvetica Bold';
     --font4: 'Helvetica Light';
     --drop-shadow:  0px 2px 5px 0px rgba(0,0,0,0.37);
+    --top-margin: 2rem;
 }
 
 html {
     font-size: 62.5%;
-    background-color: var(--gray);
+    background-color: rgb(146, 146, 146);
     overflow: auto;
     overflow: -moz-scrollbars-none;
     -ms-overflow-style: none;
@@ -58,4 +59,76 @@ html::-webkit-scrollbar {
 
 body {
     scrollbar-width: none;
+}
+
+.upper-right-nav {
+    font-family: var(--font3), sans-serif;
+    position: fixed;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 2rem;
+    top:  var(--top-margin);
+    right: 2rem;
+    background-color: transparent;
+    color: black;
+    z-index: 20;
+    cursor: pointer;
+    transition: color .25s ease-in 0s;
+    display: block;
+}
+
+.upper-right-nav span {
+    color: black;
+    font-size: 2rem;
+    font-weight: 700;
+    transition: color .25s ease-in 0s;
+}
+
+.upper-right-nav:hover > span {
+    color: var(--red);
+}
+
+.upper-right-nav:hover {
+    color: var(--red);
+}
+
+#scrollbar {
+    position: fixed;
+    top: 0;
+    width: 1rem;
+    background-color: var(--red);
+    height: 0;
+    transition: height .5s linear 0s;
+}
+
+.small {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .upper-right-nav {
+        display: none;
+    }
+
+    .small {
+        display: flex;
+        position: fixed;
+        text-align: end;
+        z-index: 20;
+        cursor: pointer;
+        transition: color .25s ease-in 0s;
+        background-color: black;
+        padding: 0 0 .75rem 1.5rem;
+        top: 0;
+        right: -1rem;
+        color: white;
+        font-size: 3rem;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0 0 0 50%;
+    }
+
+    .small:hover {
+        color: var(--red);
+    }
 }

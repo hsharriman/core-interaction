@@ -1,0 +1,44 @@
+@import url('index.css');
+
+html {
+    background-color: white;
+}
+
+h1 {
+    font-family: var(--font3), sans-serif;
+    font-size: 5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid gray;
+    width: 30vw;
+    opacity: 0;
+    transition: opacity .25s ease-in 0s;
+}
+
+h2 {
+    font-family: var(--font3), sans-serif;
+    font-size: 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid gray;
+    width: 30vw;
+    opacity: 0;
+    color: gray;
+    transition: opacity .5s ease-in 0s;
+}
+
+p {
+    max-width: 1000px;
+    font-family: var(--font3), sans-serif;
+    font-size: 2rem;
+    opacity: 0;
+    transition: opacity .75s ease-in 0s;
+}
+
+#doc {
+    margin-left: 15rem;
+    margin-top: 2rem;
+    margin-right: 25vw;
+}
+
+.back-btn {
+    right: calc(100vw - 5rem) !important;
+}
