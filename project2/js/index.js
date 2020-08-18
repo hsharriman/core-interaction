@@ -314,13 +314,13 @@ class ShapeObject {
         node.style.opacity = (randomRange(70, 100)).toString() + "%";
     
         node.querySelectorAll('*').forEach(n => n.remove());
-        var numObjs = randomNumber(12) + 1;
+        var numObjs = randomNumber(6) + 1;
         //TEMP: CHANGE BACK
         // var numObjs = 1;
         this.lettersAllowed();
         for (var i=0; i<numObjs; i++) {
-            // var ele = this.makeRandomObject(titleStr);
-            var ele = this.makeCircle();
+            var ele = this.makeRandomObject(titleStr);
+            // var ele = this.makeCircle();
             this.setOrientation(ele);
             this.setPosition(ele);
             node.appendChild(ele);
@@ -402,9 +402,6 @@ class ShapeObject {
         var ele = document.createElement('div');
         ele.classList.add('circle');
 
-        //DELETE LATER
-        ele.style.width = "20rem";
-        ele.style.height = "20rem";
         this.setColor(ele);
         return ele;
     }
