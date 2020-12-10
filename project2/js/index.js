@@ -1,14 +1,4 @@
-//GLOBALS
-const cols = 8;
-const rows = 8;
-var backgroundColor;
-var colors = ["var(--white)", "black", "var(--red)", "var(--orange)", "var(--yellow)", "var(--green)", "var(--blue)", "var(--white)"];
-var controller = new PageHandler();
-var xunit;
-var yunit;
-var canvasWidth;
-var canvasHeight;
-
+// ####################### CLASSES ############################
 class BoundingBox {
     constructor(x, y, w, h) {
         this.x = x;
@@ -544,6 +534,19 @@ class PageHandler {
         document.getElementById('main-content').style.backgroundColor = backgroundColor;
     }
 }
+
+// ############################# FUNCTIONS ####################################
+
+//GLOBALS
+const cols = 8;
+const rows = 8;
+var backgroundColor;
+var colors = ["var(--white)", "black", "var(--red)", "var(--orange)", "var(--yellow)", "var(--green)", "var(--blue)", "var(--white)"];
+var controller = new PageHandler();
+var xunit;
+var yunit;
+var canvasWidth;
+var canvasHeight;
 
 function onLoad() {
     const form = document.getElementById('form');
