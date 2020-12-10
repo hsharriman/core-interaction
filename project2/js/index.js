@@ -1,3 +1,14 @@
+//GLOBALS
+const cols = 8;
+const rows = 8;
+var backgroundColor;
+var colors = ["var(--white)", "black", "var(--red)", "var(--orange)", "var(--yellow)", "var(--green)", "var(--blue)", "var(--white)"];
+var controller = new PageHandler();
+var xunit;
+var yunit;
+var canvasWidth;
+var canvasHeight;
+
 class BoundingBox {
     constructor(x, y, w, h) {
         this.x = x;
@@ -315,12 +326,10 @@ class ShapeObject {
     
         node.querySelectorAll('*').forEach(n => n.remove());
         var numObjs = randomNumber(6) + 1;
-        //TEMP: CHANGE BACK
-        // var numObjs = 1;
+
         this.lettersAllowed();
         for (var i=0; i<numObjs; i++) {
             var ele = this.makeRandomObject(titleStr);
-            // var ele = this.makeCircle();
             this.setOrientation(ele);
             this.setPosition(ele);
             node.appendChild(ele);
@@ -486,7 +495,7 @@ class PageHandler {
     listenInput() {
         this.updateBackground();
         this.updateUnits();
-        // this.updateCoords();
+        // this.updateCoords(); // uncomment to visualize grid coordinates
         var titleStr = this.textCanvas.update();
         
         this.shapeCanvas.update(titleStr);
@@ -535,16 +544,6 @@ class PageHandler {
         document.getElementById('main-content').style.backgroundColor = backgroundColor;
     }
 }
-//GLOBALS
-const cols = 8;
-const rows = 8;
-var backgroundColor;
-var colors = ["var(--white)", "black", "var(--red)", "var(--orange)", "var(--yellow)", "var(--green)", "var(--blue)", "var(--white)"];
-var controller = new PageHandler();
-var xunit;
-var yunit;
-var canvasWidth;
-var canvasHeight;
 
 function onLoad() {
     const form = document.getElementById('form');
