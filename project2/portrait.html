@@ -12,11 +12,11 @@
     <title>Swiss Modernism Generator</title>
 </head>
 <body onload="onLoad()">
-    <div class="upper-right-nav" onclick="window.location.href='gallery.html';"><span>&#129124;</span> gallery</div>
+    <!-- <div class="upper-right-nav" onclick="window.location.href='gallery.html';"><span>&#129124;</span> gallery</div> -->
     <div id="controls">
         <div id="arrow">&utrif;</div>
         <div id="form-container">
-                <form id="form" onsubmit="return controller.listenInput()">
+                <form id="form" onsubmit="return CONTROLLER.listenInput()">
                         <!-- <label for="txtinput">Add Some Text</label> -->
                         <!-- <label for="titleinput" class="lbl">Title</label> -->
                         <input type="text" name="titleinput" id="titleinput" placeholder="12 chars max" maxlength="12" rows="1" cols ="15" class="titlein" value="Swiss Intl." autocomplete="off" autofocus><br>

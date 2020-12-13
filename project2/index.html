@@ -13,18 +13,18 @@
 </head>
 <body onload="onLoad()">
     <!-- <div class="upper-right-nav" onclick="window.location.href='gallery.html';"><span>&#129124;</span> gallery</div> -->
-    <div class="small" onclick="window.location.href='gallery.html';">&#129125;</div>
+    <!-- <div class="small" onclick="window.location.href='gallery.html';">&#129125;</div> -->
     <div id="controls">
         <div id="arrow">&utrif;</div>
         <div id="form-container">
-                <form id="form" onsubmit="return controller.listenInput()">
-                        <input type="text" name="titleinput" id="titleinput" placeholder="12 chars max" maxlength="12" rows="1" cols ="15" class="titlein" value="swiss intl." autocomplete="off" autofocus><br>
+                <form id="form" onsubmit="return CONTROLLER.listenInput()">
+                        <input type="text" name="titleinput" id="titleinput" placeholder="12 chars max" maxlength="12" rows="1" cols ="15" class="titlein" value="swiss" autocomplete="off" autofocus><br>
                         <textarea name="subinput" id="subinput" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin">modernism generator</textarea>
-                        <textarea name="subinput2" id="subinput2" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin"></textarea>
+                        <textarea name="subinput2" id="subinput2" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin">akzidenz grotesque typeface</textarea>
                         <textarea name="subinput3" id="subinput3" placeholder="(max 35 characters)" rows="2" maxlength="35" class="subin"></textarea><br>
-                        <textarea name="txtinput" id="txtinput" placeholder="(max 140 characters)"  rows="4" maxlength="140" class="textin">Featuring asymmetric layouts, use of a grid, sans-serif typefaces, and flush left, ragged right</textarea>
-                        <textarea name="txtinput2" id="txtinput2" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin"></textarea>
-                        <textarea name="txtinput3" id="txtinput3" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin"></textarea>
+                        <textarea name="txtinput" id="txtinput" placeholder="(max 140 characters)"  rows="4" maxlength="140" class="textin">asymmetric layouts, use of a grid, sans-serif typefaces, and flush left, ragged right</textarea>
+                        <textarea name="txtinput2" id="txtinput2" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin">resize window for portrait mode. </textarea>
+                        <textarea name="txtinput3" id="txtinput3" placeholder="(max 140 characters)" rows="4" maxlength="140" class="textin">enter your own text. </textarea>
                 </form>
                 <div class="btn-container">
                         <input type="submit" class="btn"value="Generate" form="form" id="generate">

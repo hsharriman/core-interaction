@@ -34,7 +34,7 @@ form {
     width: 100vw;
     height: auto;
     position: absolute;
-    top: 98vh;
+    top: 98vh !important;
     left: 0;
     background-color: var(--top-white);
     display: flex;
